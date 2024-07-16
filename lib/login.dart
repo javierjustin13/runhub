@@ -120,14 +120,25 @@ class _LoginState extends State<Login> {
                           if (emailController.text.isNotEmpty &&
                               passwordController.text.isNotEmpty) {
                             setState(() {
-                              errorMessage = "";
-                              _login();
+                              if (emailController.text.isEmpty ||
+                                  passwordController.text.isEmpty) {
+                                errorMessage = "Please fill all the fields";
+                              } else if (!emailController.text.contains('@')) {
+                                errorMessage = "Email is not valid";
+                              } else if (passwordController.text.length < 6) {
+                                errorMessage =
+                                    "Password must be at least 6 characters";
+                              } else {
+                                errorMessage = "";
+                                _login();
+                              }
                             });
                           } else {
                             setState(() {
-                              errorMessage = "Please fill in all fields";
+                              errorMessage = "Please fill all the fields";
                             });
-                          }
+                          } 
+
                         },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(

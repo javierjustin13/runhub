@@ -41,8 +41,9 @@ class _RegisterState extends State<Register> {
           child: SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: screenWidth * Variables.widthPaddingDefault,
-                  vertical: screenHeight * Variables.paddingDefault),
+                horizontal: screenWidth * Variables.widthPaddingDefault,
+                vertical: screenHeight * Variables.paddingDefault,
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,15 +52,18 @@ class _RegisterState extends State<Register> {
                     "Create an Account",
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                        fontSize: Variables.heading1,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'SF'),
+                      fontSize: Variables.heading1,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'SF',
+                    ),
                   ),
                   const Text(
                     "Hi, create your account",
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                        fontSize: Variables.normalText, fontFamily: 'SF'),
+                      fontSize: Variables.normalText,
+                      fontFamily: 'SF',
+                    ),
                   ),
                   Center(
                     child: Image(
@@ -75,10 +79,11 @@ class _RegisterState extends State<Register> {
                       labelText: 'Email',
                       iconColor: Colors.grey,
                       labelStyle: TextStyle(
-                          fontWeight: FontWeight.w800,
-                          color: Colors.grey,
-                          fontFamily: 'SF',
-                          fontSize: Variables.normalText),
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey,
+                        fontFamily: 'SF',
+                        fontSize: Variables.normalText,
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -93,10 +98,11 @@ class _RegisterState extends State<Register> {
                       suffix: Icon(Icons.visibility),
                       labelText: 'Password',
                       labelStyle: TextStyle(
-                          fontWeight: FontWeight.w800,
-                          fontFamily: 'SF',
-                          color: Colors.grey,
-                          fontSize: Variables.normalText),
+                        fontWeight: FontWeight.w500,
+                        fontFamily: 'SF',
+                        color: Colors.grey,
+                        fontSize: Variables.normalText,
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -106,67 +112,129 @@ class _RegisterState extends State<Register> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Checkbox(
-                          value: accepted,
-                          activeColor: const Color(Variables.customColor),
-                          onChanged: (bool? value) {
-                            setState(() {
-                              accepted = value ?? false;
-                            });
-                          }),
+                        value: accepted,
+                        activeColor: const Color(Variables.customColor),
+                        onChanged: (bool? value) {
+                          setState(() {
+                            accepted = value ?? false;
+                          });
+                        },
+                      ),
                       const Text(
                         "I agree to the",
                         style: TextStyle(
-                            fontFamily: 'SF', fontSize: Variables.normalText),
+                          fontFamily: 'SF',
+                        ),
                       ),
                       TextButton(
-                          onPressed: () {},
-                          child: const Text(
-                            "Terms and Conditions",
-                            style: TextStyle(
-                                fontSize: Variables.normalText,
-                                color: Color(Variables.customColor),
-                                fontFamily: 'SF'),
-                          ))
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text('Terms & Conditions'),
+                                content: SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      const Text(
+                                        "The RunHub websites, related mobile applications and services (collectively, the “Services”) are made available to you by Strava, Inc. with its address at 208 Utah Street, San Francisco, CA 94103, USA, subject to these Terms of Service (the “Terms”) and in accordance with the Strava Privacy Policy (the “Privacy Policy”). More information about the Services may be found at https://RunHub.com."
+                                        "\nYou agree to comply with these Terms and any supplemental terms which Strava makes available to you on the Services which shall form part of the Terms. Strava reserves the right to review accounts and user actions on the Services to ensure compliance with our Terms. \n\nBY ACCESSING, USING OR UPLOADING OR DOWNLOADING ANY INFORMATION OR MATERIALS TO OR FROM THE SERVICES, OR BY INDICATING YOUR ASSENT TO THESE TERMS BY CREATING AN ACCOUNT, CLICKING “SIGN UP” OR ANY SIMILAR MECHANISM, YOU ARE AGREEING TO THESE TERMS. IF YOU DO NOT AGREE TO THESE TERMS, DO NOT ACCESS OR USE THE SERVICES. This agreement was written in English. To the extent a translated version of the Terms conflict with the English version, the English version controls.",
+                                        style: TextStyle(fontFamily: 'SF'),
+                                      ),
+                                      SizedBox(
+                                        height: screenHeight * 0.02,
+                                      ),
+                                      const Text(
+                                        "\nYou agree to comply with these Terms and any supplemental terms which Strava makes available to you on the Services which shall form part of the Terms. Strava reserves the right to review accounts and user actions on the Services to ensure compliance with our Terms. \nIf you access or use the Services on behalf of a company or other entity, you represent that you have authority to bind such entity and its affiliates to these Terms and that it is fully binding on them. In such case, the term “you” will refer to such entity and its affiliates. If you do not have authority, you may not access or use the Services. These Terms contain disclaimers of warranties and limitations on liability that may be applicable to you.\nThe Strava Services cannot be provided and the agreement described in these Terms of Service cannot be performed without Strava processing data about you, and other Strava users, including your location data. Processing of the data you share with Strava, including location data, is essential to the Services we provide and a necessary part of our performance of the agreement we have with you.",
+                                        style: TextStyle(fontFamily: 'SF'),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text('Close'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        child: const Text(
+                          "Terms & Conditions",
+                          style: TextStyle(
+                            color: Color(Variables.customColor),
+                            fontFamily: 'SF',
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                   Center(
-                    child: Text(errorMessage,
-                        style: const TextStyle(
-                            color: Colors.red, fontFamily: 'SF')),
+                    child: Text(
+                      errorMessage,
+                      style: const TextStyle(
+                        color: Colors.red,
+                        fontFamily: 'SF',
+                      ),
+                    ),
                   ),
+                  if (errorMessage != "")
+                    SizedBox(
+                      height: screenHeight * 0.02,
+                    ),
                   SizedBox(
-                    height: screenHeight * 0.01,
-                  ),
-                  SizedBox(
-                      width: screenWidth * Variables.buttonWidthToScreen,
-                      height: screenHeight * Variables.buttonHeightToScreen,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          if (accepted &&
-                              emailController.text.isNotEmpty &&
-                              passwordController.text.isNotEmpty) {
-                            _login();
-                          } else {
-                            setState(() {
+                    width: screenWidth * Variables.buttonWidthToScreen,
+                    height: screenHeight * Variables.buttonHeightToScreen,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (emailController.text.isNotEmpty &&
+                            passwordController.text.isNotEmpty) {
+                          setState(() {
+                            if (emailController.text.isEmpty ||
+                                passwordController.text.isEmpty) {
                               errorMessage = "Please fill all the fields";
-                            });
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                                Variables.buttonEdgeRadius),
+                            } else if (!emailController.text.contains('@')) {
+                              errorMessage = "Email is not valid";
+                            } else if (!accepted) {
+                              errorMessage =
+                                  "Please accept the terms & conditions";
+                            } else if (passwordController.text.length < 6) {
+                              errorMessage =
+                                  "Password must be at least 6 characters";
+                            } else {
+                              errorMessage = "";
+                              _login();
+                            }
+                          });
+                        } else {
+                          setState(() {
+                            errorMessage = "Please fill all the fields";
+                          });
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                            Variables.buttonEdgeRadius,
                           ),
-                          backgroundColor: const Color(0xFFF7931E),
-                          elevation: 0,
-                          foregroundColor: Colors.white,
                         ),
-                        child: const Text(
-                          "Sign Up",
-                          style: TextStyle(
-                              fontSize: Variables.normalText, fontFamily: 'SF'),
+                        backgroundColor: const Color(0xFFF7931E),
+                        elevation: 0,
+                        foregroundColor: Colors.white,
+                      ),
+                      child: const Text(
+                        "Sign Up",
+                        style: TextStyle(
+                          fontSize: Variables.normalText,
+                          fontFamily: 'SF',
                         ),
-                      )),
+                      ),
+                    ),
+                  ),
                   SizedBox(
                     height: screenHeight * 0.02,
                   ),
@@ -181,7 +249,9 @@ class _RegisterState extends State<Register> {
                       const Text(
                         "OR",
                         style: TextStyle(
-                            fontSize: Variables.smallText, fontFamily: 'SF'),
+                          fontSize: Variables.smallText,
+                          fontFamily: 'SF',
+                        ),
                       ),
                       Container(
                         width: screenWidth * 0.3,
@@ -194,71 +264,84 @@ class _RegisterState extends State<Register> {
                     height: screenHeight * .02,
                   ),
                   SizedBox(
-                      width: screenWidth * Variables.buttonWidthToScreen,
-                      height: screenHeight * Variables.buttonHeightToScreen,
-                      child: ElevatedButton.icon(
-                        onPressed: _login,
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                                Variables.buttonEdgeRadius),
+                    width: screenWidth * Variables.buttonWidthToScreen,
+                    height: screenHeight * Variables.buttonHeightToScreen,
+                    child: ElevatedButton.icon(
+                      onPressed: _login,
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                            Variables.buttonEdgeRadius,
                           ),
-                          backgroundColor: Colors.white,
-                          elevation: 3,
-                          foregroundColor: Colors.black,
                         ),
-                        icon: const Icon(Icons.apple),
-                        iconAlignment: IconAlignment.start,
-                        label: const Text(
-                          "Sign Up with Apple",
-                          style: TextStyle(
-                              fontSize: Variables.normalText, fontFamily: 'SF'),
+                        backgroundColor: Colors.white,
+                        elevation: 3,
+                        foregroundColor: Colors.black,
+                      ),
+                      icon: const Icon(Icons.apple),
+                      iconAlignment: IconAlignment.start,
+                      label: const Text(
+                        "Sign Up with Apple",
+                        style: TextStyle(
+                          fontSize: Variables.normalText,
+                          fontFamily: 'SF',
                         ),
-                      )),
+                      ),
+                    ),
+                  ),
                   SizedBox(
                     height: screenHeight * 0.02,
                   ),
                   SizedBox(
-                      width: screenWidth * Variables.buttonWidthToScreen,
-                      height: screenHeight * Variables.buttonHeightToScreen,
-                      child: ElevatedButton.icon(
-                          iconAlignment: IconAlignment.start,
-                          onPressed: _login,
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                  Variables.buttonEdgeRadius),
-                            ),
-                            backgroundColor: Colors.white,
-                            elevation: 3,
-                            foregroundColor: Colors.black,
+                    width: screenWidth * Variables.buttonWidthToScreen,
+                    height: screenHeight * Variables.buttonHeightToScreen,
+                    child: ElevatedButton.icon(
+                      iconAlignment: IconAlignment.start,
+                      onPressed: _login,
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                            Variables.buttonEdgeRadius,
                           ),
-                          icon: const Icon(Icons.facebook),
-                          label: const Text(
-                            "Sign Up with Facebook",
-                            style: TextStyle(
-                                fontSize: Variables.normalText,
-                                fontFamily: 'SF'),
-                          ))),
+                        ),
+                        backgroundColor: Colors.white,
+                        elevation: 3,
+                        foregroundColor: Colors.black,
+                      ),
+                      icon: const Icon(Icons.facebook),
+                      label: const Text(
+                        "Sign Up with Facebook",
+                        style: TextStyle(
+                          fontSize: Variables.normalText,
+                          fontFamily: 'SF',
+                        ),
+                      ),
+                    ),
+                  ),
                   // create not have an account yet button
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text("Have an Account?"),
                       TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const Login()));
-                          },
-                          child: const Text(
-                            "Login",
-                            style: TextStyle(
-                                color: Color(0xFFF7931E), fontFamily: 'SF'),
-                          ))
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Login(),
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          "Login",
+                          style: TextStyle(
+                            color: Color(0xFFF7931E),
+                            fontFamily: 'SF',
+                          ),
+                        ),
+                      ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),

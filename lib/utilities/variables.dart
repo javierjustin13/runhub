@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class Variables {
   static double paddingDefault = 0.05;
   static double widthPaddingDefault = 0.075;

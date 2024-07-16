@@ -13,8 +13,6 @@ void main() async {
           TargetPlatform.iOS: CustomPageTransitionsBuilder(),
         },
       ),
-      dialogTheme:
-          const DialogTheme(backgroundColor: Color(Variables.customColor)),
       primaryColor: const Color(Variables.customColor),
     ),
     home: const SplashScreen(),
