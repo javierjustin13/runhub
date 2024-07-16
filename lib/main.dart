@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:runhub/splash.dart';
 import 'package:runhub/utilities/custom_theme.dart';
-import 'package:runhub/login_register.dart';
 import 'package:runhub/utilities/variables.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
     theme: ThemeData(
       pageTransitionsTheme: PageTransitionsTheme(
         builders: {
@@ -17,6 +17,6 @@ void main() {
           const DialogTheme(backgroundColor: Color(Variables.customColor)),
       primaryColor: const Color(Variables.customColor),
     ),
-    home: const LoginRegister(),
+    home: const SplashScreen(),
   ));
 }

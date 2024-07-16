@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:runhub/home.dart';
 import 'package:runhub/register.dart';
 import 'package:runhub/utilities/variables.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -11,13 +12,30 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  String errorMessage = "";
+
+  Future<void> _login() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isLoggedIn', true);
+    await prefs.setString('email', emailController.text);
+
+    if (context.mounted) {
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const Home()),
+        (Route<dynamic> route) => false,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(
@@ -50,6 +68,7 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   TextFormField(
+                    controller: emailController,
                     decoration: const InputDecoration(
                       border: UnderlineInputBorder(),
                       icon: Icon(Icons.email),
@@ -66,6 +85,7 @@ class _LoginState extends State<Login> {
                     height: MediaQuery.of(context).size.height * 0.01,
                   ),
                   TextFormField(
+                    controller: passwordController,
                     decoration: const InputDecoration(
                       iconColor: Colors.grey,
                       border: UnderlineInputBorder(),
@@ -79,18 +99,35 @@ class _LoginState extends State<Login> {
                           fontFamily: 'SF'),
                     ),
                   ),
+
                   SizedBox(
-                    height: screenHeight * 0.05,
+                    height: MediaQuery.of(context).size.height * 0.01,
+                  ),
+                  Center(
+                      child: Text(
+                    errorMessage,
+                    style: const TextStyle(color: Colors.red, fontFamily: 'SF'),
+                  )),
+
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.01,
                   ),
                   SizedBox(
                       width: screenWidth * Variables.buttonWidthToScreen,
                       height: screenHeight * Variables.buttonHeightToScreen,
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const Home()));
+                          if (emailController.text.isNotEmpty &&
+                              passwordController.text.isNotEmpty) {
+                            setState(() {
+                              errorMessage = "";
+                              _login();
+                            });
+                          } else {
+                            setState(() {
+                              errorMessage = "Please fill in all fields";
+                            });
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
@@ -137,12 +174,7 @@ class _LoginState extends State<Login> {
                       width: screenWidth * Variables.buttonWidthToScreen,
                       height: screenHeight * Variables.buttonHeightToScreen,
                       child: ElevatedButton.icon(
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const Home()));
-                        },
+                        onPressed: _login,
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
@@ -168,12 +200,7 @@ class _LoginState extends State<Login> {
                       height: screenHeight * Variables.buttonHeightToScreen,
                       child: ElevatedButton.icon(
                           iconAlignment: IconAlignment.start,
-                          onPressed: () {
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const Home()));
-                          },
+                          onPressed: _login,
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
@@ -205,7 +232,8 @@ class _LoginState extends State<Login> {
                           child: const Text(
                             "Create an Account",
                             style: TextStyle(
-                                color: Color(Variables.customColor), fontFamily: 'SF'),
+                                color: Color(Variables.customColor),
+                                fontFamily: 'SF'),
                           ))
                     ],
                   )

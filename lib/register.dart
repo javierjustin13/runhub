@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:runhub/home.dart';
 import 'package:runhub/login.dart';
 import 'package:runhub/utilities/variables.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -11,13 +12,30 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  bool accepted = false;
+  String errorMessage = "";
+
+  Future<void> _login() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isLoggedIn', true);
+    prefs.setString('email', emailController.text);
+    if (context.mounted) {
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const Home()),
+        (Route<dynamic> route) => false,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(
@@ -50,6 +68,7 @@ class _RegisterState extends State<Register> {
                     ),
                   ),
                   TextFormField(
+                    controller: emailController,
                     decoration: const InputDecoration(
                       border: UnderlineInputBorder(),
                       icon: Icon(Icons.email),
@@ -66,6 +85,7 @@ class _RegisterState extends State<Register> {
                     height: MediaQuery.of(context).size.height * 0.01,
                   ),
                   TextFormField(
+                    controller: passwordController,
                     decoration: const InputDecoration(
                       iconColor: Colors.grey,
                       border: UnderlineInputBorder(),
@@ -80,17 +100,57 @@ class _RegisterState extends State<Register> {
                     ),
                   ),
                   SizedBox(
-                    height: screenHeight * 0.05,
+                    height: screenHeight * 0.01,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Checkbox(
+                          value: accepted,
+                          activeColor: const Color(Variables.customColor),
+                          onChanged: (bool? value) {
+                            setState(() {
+                              accepted = value ?? false;
+                            });
+                          }),
+                      const Text(
+                        "I agree to the",
+                        style: TextStyle(
+                            fontFamily: 'SF', fontSize: Variables.normalText),
+                      ),
+                      TextButton(
+                          onPressed: () {},
+                          child: const Text(
+                            "Terms and Conditions",
+                            style: TextStyle(
+                                fontSize: Variables.normalText,
+                                color: Color(Variables.customColor),
+                                fontFamily: 'SF'),
+                          ))
+                    ],
+                  ),
+                  Center(
+                    child: Text(errorMessage,
+                        style: const TextStyle(
+                            color: Colors.red, fontFamily: 'SF')),
+                  ),
+                  SizedBox(
+                    height: screenHeight * 0.01,
                   ),
                   SizedBox(
                       width: screenWidth * Variables.buttonWidthToScreen,
                       height: screenHeight * Variables.buttonHeightToScreen,
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const Home()));
+                          if (accepted &&
+                              emailController.text.isNotEmpty &&
+                              passwordController.text.isNotEmpty) {
+                            _login();
+                          } else {
+                            setState(() {
+                              errorMessage = "Please fill all the fields";
+                            });
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
@@ -102,7 +162,7 @@ class _RegisterState extends State<Register> {
                           foregroundColor: Colors.white,
                         ),
                         child: const Text(
-                          "Register",
+                          "Sign Up",
                           style: TextStyle(
                               fontSize: Variables.normalText, fontFamily: 'SF'),
                         ),
@@ -137,12 +197,7 @@ class _RegisterState extends State<Register> {
                       width: screenWidth * Variables.buttonWidthToScreen,
                       height: screenHeight * Variables.buttonHeightToScreen,
                       child: ElevatedButton.icon(
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const Home()));
-                        },
+                        onPressed: _login,
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
@@ -155,7 +210,7 @@ class _RegisterState extends State<Register> {
                         icon: const Icon(Icons.apple),
                         iconAlignment: IconAlignment.start,
                         label: const Text(
-                          "Login with Apple",
+                          "Sign Up with Apple",
                           style: TextStyle(
                               fontSize: Variables.normalText, fontFamily: 'SF'),
                         ),
@@ -168,12 +223,7 @@ class _RegisterState extends State<Register> {
                       height: screenHeight * Variables.buttonHeightToScreen,
                       child: ElevatedButton.icon(
                           iconAlignment: IconAlignment.start,
-                          onPressed: () {
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const Home()));
-                          },
+                          onPressed: _login,
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
@@ -185,7 +235,7 @@ class _RegisterState extends State<Register> {
                           ),
                           icon: const Icon(Icons.facebook),
                           label: const Text(
-                            "Login with Facebook",
+                            "Sign Up with Facebook",
                             style: TextStyle(
                                 fontSize: Variables.normalText,
                                 fontFamily: 'SF'),
