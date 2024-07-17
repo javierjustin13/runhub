@@ -14,4 +14,6 @@ class Variables {
   static const double heading2 = 22;
 
   static const int customColor = 0xFFF7931E;
+
+  static const double appBarBottomBorder = 2.0;
 }

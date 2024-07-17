@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:runhub/utilities/variables.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:runhub/login.dart';
 
@@ -25,36 +26,63 @@ class _HomeState extends State<Home> {
     }
   }
 
+  int _selectedIndex = 0;
+  static const TextStyle appBarStyle = TextStyle(
+      fontSize: Variables.heading1,
+      fontWeight: FontWeight.bold,
+      color: Color(Variables.customColor));
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text('HOME', style: appBarStyle),
+    Text('ROUTE', style: appBarStyle),
+    Text('RECORD', style: appBarStyle),
+    Text('PROFILE', style: appBarStyle),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: FutureBuilder<String?>(
-          future: _getEmail(),
-          builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator();
-            } else if (snapshot.hasError) {
-              return const Text('Error occurred');
-            } else if (snapshot.hasData && snapshot.data == "") {
-              return const Text('You Logged In with Authorized Account');
-            } else if (snapshot.hasData && snapshot.data != null) {
-              return Text('Hi, ${snapshot.data}');
-            } else {
-              return const Text('You Logged In with Authorized Account');
-            }
-          },
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () => _logout(context),
+        appBar: AppBar(
+          title: _widgetOptions.elementAt(_selectedIndex),
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(Variables.appBarBottomBorder),
+            child: Container(
+              color: const Color(Variables.customColor),
+              height: Variables.appBarBottomBorder,
+            ),
           ),
-        ],
-      ),
-      body: const Center(
-        child: Text('Welcome to the Home Screen!'),
-      ),
-    );
+        ),
+        body: const Center(
+          child: Text("HI"),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'HOME',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.map),
+              label: 'ROUTE',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.record_voice_over),
+              label: 'RECORD',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'PROFILE',
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          unselectedItemColor: Colors.grey,
+          selectedItemColor: Colors.amber[800],
+          onTap: _onItemTapped,
+        ));
   }
 }
