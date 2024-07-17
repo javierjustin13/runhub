@@ -1,5 +1,7 @@
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
+import 'package:runhub/utilities/variables.dart';
 
 class RoutePage extends StatefulWidget {
   const RoutePage({super.key});
@@ -20,22 +22,113 @@ class _RoutePageState extends State<RoutePage> {
   ];
   @override
   Widget build(BuildContext context) {
+    final confetti = ConfettiController(duration: const Duration(seconds: 1));
+    CardSwiperController controller = CardSwiperController();
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    return Center(
-      child: Container(
-          color: Colors.white,
-          width: screenWidth * 0.9,
-          height: screenHeight * 0.7,
-          child: CardSwiper(
-            cardBuilder: (context, index, x, y) {
-              return ClipRect(
-                child: Image.asset(images[index], fit: BoxFit.cover),
-              );
-            },
-            cardsCount: 7,
-            numberOfCardsDisplayed: 3,
-          )),
+    return SizedBox(
+      width: screenWidth,
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            ConfettiWidget(
+              confettiController: confetti,
+              gravity: 0.2,
+            ),
+            Container(
+              color: Colors.white,
+              width: screenWidth * 0.8,
+              height: screenHeight * 0.05,
+              child: const Center(
+                child: Text("Choose Your Favorite Route!",
+                    style: CustomWidgets.normalText),
+              ),
+            ),
+            SizedBox(
+              height: screenHeight * 0.02,
+            ),
+            Column(
+              children: [
+                Container(
+                    color: Colors.white,
+                    width: screenWidth * 0.8,
+                    height: screenHeight * 0.6,
+                    child: CardSwiper(
+                      cardBuilder: (context, index, x, y) {
+                        return ClipRect(
+                          child: Image.asset(images[index], fit: BoxFit.cover),
+                        );
+                      },
+                      cardsCount: 7,
+                      numberOfCardsDisplayed: 2,
+                      isLoop: false,
+                      onSwipe: (previous, current, direction) {
+                        if (direction == CardSwiperDirection.left) {
+                          confetti.play();
+                        }
+                        return true;
+                      },
+                      controller: controller,
+                    )),
+                Container(
+                  color: Colors.white,
+                  width: screenWidth * 0.8,
+                  height: screenHeight * 0.01,
+                ),
+                Container(
+                  color: Colors.white,
+                  width: screenWidth * 0.8,
+                  height: screenHeight * 0.08,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          elevation: 2,
+                          backgroundColor: Colors.white,
+                          iconColor: Colors.red,
+                          shape: const CircleBorder(),
+                          padding: const EdgeInsets.all(15),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            controller.swipe(CardSwiperDirection.left);
+                          });
+                        },
+                        child: const Icon(
+                          Icons.close,
+                          color: Colors.red,
+                          size: 30, // Icon size
+                        ),
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          elevation: 2,
+                          iconColor: Colors.blue,
+                          shape: const CircleBorder(),
+                          backgroundColor: Colors.white,
+                          padding: const EdgeInsets.all(15),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            confetti.play();
+                            controller.swipe(CardSwiperDirection.right);
+                          });
+                        },
+                        child: const Icon(
+                          Icons.check,
+                          color: Colors.blue,
+                          size: 30,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ]),
     );
   }
 }
