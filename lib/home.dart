@@ -58,6 +58,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: const Color(0xFFF1F1F1),
         appBar: AppBar(
           title: _widgetOptions.elementAt(_selectedIndex),
           bottom: PreferredSize(

@@ -37,6 +37,9 @@ dependencies:
   flutter_native_splash: ^2.4.1
   google_fonts: ^6.2.1
   shared_preferences: ^2.2.3
+  flutter_card_swiper: ^7.0.1
+  palette_generator: ^0.3.3+4
+  fluttertoast: ^8.2.6
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +66,14 @@ flutter:
     - assets/logo_splash.png
     - assets/logo.png
     - assets/login.png
+    - assets/en_route/1.png
+    - assets/en_route/2.png
+    - assets/en_route/3.png
+    - assets/en_route/4.png
+    - assets/en_route/5.png
+    - assets/en_route/6.png
+    - assets/en_route/7.png
+    
   
   fonts:
   - family: SF
