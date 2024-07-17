@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:runhub/profile.dart';
+import 'package:runhub/record.dart';
+import 'package:runhub/route.dart';
 import 'package:runhub/utilities/variables.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:runhub/login.dart';
@@ -31,11 +34,19 @@ class _HomeState extends State<Home> {
       fontSize: Variables.heading1,
       fontWeight: FontWeight.bold,
       color: Color(Variables.customColor));
+
   static const List<Widget> _widgetOptions = <Widget>[
     Text('HOME', style: appBarStyle),
     Text('ROUTE', style: appBarStyle),
     Text('RECORD', style: appBarStyle),
     Text('PROFILE', style: appBarStyle),
+  ];
+
+  static const List<Widget> _navigator = <Widget>[
+    HomePage(),
+    RoutePage(),
+    RecordPage(),
+    ProfilePage(),
   ];
 
   void _onItemTapped(int index) {
@@ -52,14 +63,20 @@ class _HomeState extends State<Home> {
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(Variables.appBarBottomBorder),
             child: Container(
-              color: const Color(Variables.customColor),
+              color: CustomWidgets.defaultOrange,
               height: Variables.appBarBottomBorder,
             ),
           ),
+          actions: [
+            IconButton(
+              iconSize: 30,
+              color: CustomWidgets.defaultOrange,
+              icon: const Icon(Icons.logout),
+              onPressed: () => _logout(context),
+            ),
+          ],
         ),
-        body: const Center(
-          child: Text("HI"),
-        ),
+        body: _navigator.elementAt(_selectedIndex),
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
@@ -84,5 +101,22 @@ class _HomeState extends State<Home> {
           selectedItemColor: Colors.amber[800],
           onTap: _onItemTapped,
         ));
+  }
+}
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.red,
+      child: const Text("INI HOMESC YA"),
+    );
   }
 }

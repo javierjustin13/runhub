@@ -12,15 +12,15 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  EmailPasswordController emailPasswordController = EmailPasswordController();
 
   String errorMessage = "";
 
   Future<void> _login() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLoggedIn', true);
-    await prefs.setString('email', emailController.text);
+    await prefs.setString(
+        'email', emailPasswordController.emailController.text);
 
     if (context.mounted) {
       Navigator.of(context).pushAndRemoveUntil(
@@ -50,16 +50,12 @@ class _LoginState extends State<Login> {
                   const Text(
                     "Login Account",
                     textAlign: TextAlign.left,
-                    style: TextStyle(
-                        fontSize: Variables.heading1,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'SF'),
+                    style: CustomWidgets.heading1,
                   ),
                   const Text(
                     "Hi, welcome back to your account",
                     textAlign: TextAlign.left,
-                    style: TextStyle(
-                        fontSize: Variables.normalText, fontFamily: 'SF'),
+                    style: CustomWidgets.normalText,
                   ),
                   Center(
                     child: Image(
@@ -68,35 +64,26 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   TextFormField(
-                    controller: emailController,
+                    controller: emailPasswordController.emailController,
                     decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
-                      icon: Icon(Icons.email),
-                      labelText: 'Email',
-                      iconColor: Colors.grey,
-                      labelStyle: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Colors.grey,
-                          fontSize: Variables.normalText,
-                          fontFamily: 'SF'),
-                    ),
+                        border: UnderlineInputBorder(),
+                        icon: Icon(Icons.email),
+                        labelText: 'Email',
+                        iconColor: Colors.grey,
+                        labelStyle: CustomWidgets.labelStyle),
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.01,
                   ),
                   TextFormField(
-                    controller: passwordController,
+                    controller: emailPasswordController.passwordController,
                     decoration: const InputDecoration(
                       iconColor: Colors.grey,
                       border: UnderlineInputBorder(),
                       icon: Icon(Icons.password),
                       suffix: Icon(Icons.visibility),
                       labelText: 'Password',
-                      labelStyle: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Colors.grey,
-                          fontSize: Variables.normalText,
-                          fontFamily: 'SF'),
+                      labelStyle: CustomWidgets.labelStyle,
                     ),
                   ),
 
@@ -106,7 +93,7 @@ class _LoginState extends State<Login> {
                   Center(
                       child: Text(
                     errorMessage,
-                    style: const TextStyle(color: Colors.red, fontFamily: 'SF'),
+                    style: CustomWidgets.errorText,
                   )),
 
                   SizedBox(
@@ -117,15 +104,23 @@ class _LoginState extends State<Login> {
                       height: screenHeight * Variables.buttonHeightToScreen,
                       child: ElevatedButton(
                         onPressed: () {
-                          if (emailController.text.isNotEmpty &&
-                              passwordController.text.isNotEmpty) {
+                          if (emailPasswordController
+                                  .emailController.text.isNotEmpty &&
+                              emailPasswordController
+                                  .passwordController.text.isNotEmpty) {
                             setState(() {
-                              if (emailController.text.isEmpty ||
-                                  passwordController.text.isEmpty) {
+                              if (emailPasswordController
+                                      .emailController.text.isEmpty ||
+                                  emailPasswordController
+                                      .passwordController.text.isEmpty) {
                                 errorMessage = "Please fill all the fields";
-                              } else if (!emailController.text.contains('@')) {
+                              } else if (!emailPasswordController
+                                  .emailController.text
+                                  .contains('@')) {
                                 errorMessage = "Email is not valid";
-                              } else if (passwordController.text.length < 6) {
+                              } else if (emailPasswordController
+                                      .passwordController.text.length <
+                                  6) {
                                 errorMessage =
                                     "Password must be at least 6 characters";
                               } else {
@@ -137,15 +132,14 @@ class _LoginState extends State<Login> {
                             setState(() {
                               errorMessage = "Please fill all the fields";
                             });
-                          } 
-
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
                                 Variables.buttonEdgeRadius),
                           ),
-                          backgroundColor: const Color(0xFFF7931E),
+                          backgroundColor: CustomWidgets.defaultOrange,
                           elevation: 0,
                           foregroundColor: Colors.white,
                         ),
@@ -166,11 +160,7 @@ class _LoginState extends State<Login> {
                         height: 1,
                         color: Colors.grey,
                       ),
-                      const Text(
-                        "OR",
-                        style: TextStyle(
-                            fontSize: Variables.smallText, fontFamily: 'SF'),
-                      ),
+                      const Text("OR", style: CustomWidgets.smallText),
                       Container(
                         width: screenWidth * 0.3,
                         height: 1,
@@ -199,8 +189,7 @@ class _LoginState extends State<Login> {
                         iconAlignment: IconAlignment.start,
                         label: const Text(
                           "Login with Apple",
-                          style: TextStyle(
-                              fontSize: Variables.normalText, fontFamily: 'SF'),
+                          style: CustomWidgets.normalText,
                         ),
                       )),
                   SizedBox(
@@ -224,9 +213,7 @@ class _LoginState extends State<Login> {
                           icon: const Icon(Icons.facebook),
                           label: const Text(
                             "Login with Facebook",
-                            style: TextStyle(
-                                fontSize: Variables.normalText,
-                                fontFamily: 'SF'),
+                            style: CustomWidgets.normalText,
                           ))),
                   // create not have an account yet button
                   Row(
@@ -243,7 +230,7 @@ class _LoginState extends State<Login> {
                           child: const Text(
                             "Create an Account",
                             style: TextStyle(
-                                color: Color(Variables.customColor),
+                                color: CustomWidgets.defaultOrange,
                                 fontFamily: 'SF'),
                           ))
                     ],

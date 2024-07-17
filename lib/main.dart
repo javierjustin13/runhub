@@ -13,7 +13,7 @@ void main() async {
           TargetPlatform.iOS: CustomPageTransitionsBuilder(),
         },
       ),
-      primaryColor: const Color(Variables.customColor),
+      primaryColor: CustomWidgets.defaultOrange,
     ),
     home: const SplashScreen(),
   ));
