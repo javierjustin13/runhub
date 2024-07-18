@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:runhub/utilities/variables.dart';
+import 'package:runhub/detail_record.dart'; // Import the new page
 
 class RecordPage extends StatefulWidget {
   const RecordPage({super.key});
@@ -10,7 +11,7 @@ class RecordPage extends StatefulWidget {
 
 class _RecordPageState extends State<RecordPage> {
   // Define a state variable to keep track of the active icon
-  int _activeIconIndex = -1;
+  int _activeIconIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +50,13 @@ class _RecordPageState extends State<RecordPage> {
               width: double.maxFinite,
               height: 50,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const DetailRecordPage()),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
