@@ -31,7 +31,7 @@ class _HomeState extends State<Home> {
 
   int _selectedIndex = 0;
   static const TextStyle appBarStyle = TextStyle(
-      fontSize: Variables.heading1,
+      fontSize: Variables.heading2,
       fontWeight: FontWeight.bold,
       color: Color(Variables.customColor));
 

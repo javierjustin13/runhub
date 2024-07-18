@@ -18,6 +18,8 @@ class Variables {
   static const int customColor = 0xFFF7931E;
 
   static const double appBarBottomBorder = 2.0;
+
+  static const IconData pool = IconData(0xe4dc, fontFamily: 'MaterialIcons');
 }
 
 class CustomWidgets {
