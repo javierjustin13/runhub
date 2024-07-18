@@ -9,6 +9,9 @@ class RecordPage extends StatefulWidget {
 }
 
 class _RecordPageState extends State<RecordPage> {
+  // Define a state variable to keep track of the active icon
+  int _activeIconIndex = -1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,30 +33,13 @@ class _RecordPageState extends State<RecordPage> {
                 color: Colors.orange,
                 borderRadius: BorderRadius.circular(5),
               ),
-              // padding: const EdgeInsets.symmetric(vertical: 5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  IconButton(
-                    icon: const Icon(Icons.directions_walk),
-                    onPressed: () {},
-                    color: Colors.white,
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.directions_bike),
-                    onPressed: () {},
-                    color: Colors.white,
-                  ),
-                  IconButton(
-                    icon: const Icon(Variables.pool),
-                    onPressed: () {},
-                    color: Colors.white,
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.directions_run),
-                    onPressed: () {},
-                    color: Colors.white,
-                  ),
+                  _buildIconButton(0, Icons.directions_walk),
+                  _buildIconButton(1, Icons.directions_bike),
+                  _buildIconButton(2, Variables.pool),
+                  _buildIconButton(3, Icons.directions_run),
                 ],
               ),
             ),
@@ -80,6 +66,27 @@ class _RecordPageState extends State<RecordPage> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildIconButton(int index, IconData icon) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _activeIconIndex = index;
+        });
+      },
+      child: Container(
+        padding: const EdgeInsets.all(4.0), // Smaller padding for smaller box
+        decoration: BoxDecoration(
+          color: _activeIconIndex == index ? Colors.white : Colors.orange,
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Icon(
+          icon,
+          color: _activeIconIndex == index ? Colors.orange : Colors.white,
         ),
       ),
     );
