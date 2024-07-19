@@ -73,7 +73,7 @@ flutter:
     - assets/en_route/5.png
     - assets/en_route/6.png
     - assets/en_route/7.png
-    - assets/record_background.png
+    - assets/record_background.jpg
 
   fonts:
     - family: SF

@@ -23,7 +23,7 @@ class _RegisterState extends State<Register> {
     prefs.setString('email', emailPasswordController.emailController.text);
     if (context.mounted) {
       Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => const Home()),
+        MaterialPageRoute(builder: (context) => Home()),
         (Route<dynamic> route) => false,
       );
     }

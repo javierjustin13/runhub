@@ -19,7 +19,7 @@ class _RecordPageState extends State<RecordPage> {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/record_background.png'),
+            image: AssetImage('assets/record_background.jpg'),
             fit: BoxFit.cover,
           ),
         ),
@@ -46,7 +46,7 @@ class _RecordPageState extends State<RecordPage> {
             ),
             // Second bar with start button
             Container(
-              margin: const EdgeInsets.only(bottom: 30, left: 15, right: 15),
+              margin: const EdgeInsets.only(bottom: 50, left: 12, right: 12),
               width: double.maxFinite,
               height: 50,
               child: ElevatedButton(

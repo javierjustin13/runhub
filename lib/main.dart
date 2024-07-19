@@ -6,10 +6,9 @@ import 'package:runhub/utilities/variables.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
     theme: ThemeData(
       pageTransitionsTheme: PageTransitionsTheme(
-        builders: {
+      builders: {
           TargetPlatform.android: CustomPageTransitionsBuilder(),
           TargetPlatform.iOS: CustomPageTransitionsBuilder(),
         },

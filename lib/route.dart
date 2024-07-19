@@ -1,6 +1,8 @@
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
+import 'package:runhub/home.dart';
+import 'package:runhub/record.dart';
 import 'package:runhub/utilities/variables.dart';
 
 class RoutePage extends StatefulWidget {
@@ -38,22 +40,22 @@ class _RoutePageState extends State<RoutePage> {
             ),
             Container(
               color: Colors.white,
-              width: screenWidth * 0.8,
-              height: screenHeight * 0.05,
+              width: screenWidth * 0.9,
+              height: screenHeight * 0.035,
               child: const Center(
                 child: Text("Choose Your Favorite Route!",
                     style: CustomWidgets.normalText),
               ),
             ),
             SizedBox(
-              height: screenHeight * 0.02,
+              height: screenHeight * 0.01,
             ),
             Column(
               children: [
                 Container(
                     color: Colors.white,
-                    width: screenWidth * 0.8,
-                    height: screenHeight * 0.6,
+                    width: screenWidth * 0.9,
+                    height: screenHeight * 0.68,
                     child: CardSwiper(
                       cardBuilder: (context, index, x, y) {
                         return ClipRect(
@@ -62,9 +64,9 @@ class _RoutePageState extends State<RoutePage> {
                       },
                       cardsCount: 7,
                       numberOfCardsDisplayed: 2,
-                      isLoop: false,
+                      isLoop: true,
                       onSwipe: (previous, current, direction) {
-                        if (direction == CardSwiperDirection.left) {
+                        if (direction == CardSwiperDirection.right) {
                           confetti.play();
                         }
                         return true;
@@ -73,12 +75,7 @@ class _RoutePageState extends State<RoutePage> {
                     )),
                 Container(
                   color: Colors.white,
-                  width: screenWidth * 0.8,
-                  height: screenHeight * 0.01,
-                ),
-                Container(
-                  color: Colors.white,
-                  width: screenWidth * 0.8,
+                  width: screenWidth * 0.9,
                   height: screenHeight * 0.08,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -115,6 +112,12 @@ class _RoutePageState extends State<RoutePage> {
                           setState(() {
                             confetti.play();
                             controller.swipe(CardSwiperDirection.right);
+                            // go to record page
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Home(selectedIndex: 2)),
+                            );
                           });
                         },
                         child: const Icon(

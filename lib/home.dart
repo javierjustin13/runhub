@@ -7,13 +7,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:runhub/login.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  int selectedIndex = 0;
+  Home({super.key, this.selectedIndex = 0});
 
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
+  
   // get string email from sharedpreferences
   Future<String?> _getEmail() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -29,7 +31,6 @@ class _HomeState extends State<Home> {
     }
   }
 
-  int _selectedIndex = 0;
   static const TextStyle appBarStyle = TextStyle(
       fontSize: Variables.heading2,
       fontWeight: FontWeight.bold,
@@ -51,7 +52,8 @@ class _HomeState extends State<Home> {
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      // set selected index from Home to index
+      widget.selectedIndex = index;
     });
   }
 
@@ -60,7 +62,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
         backgroundColor: const Color(0xFFF1F1F1),
         appBar: AppBar(
-          title: _widgetOptions.elementAt(_selectedIndex),
+          title: _widgetOptions.elementAt(widget.selectedIndex),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(Variables.appBarBottomBorder),
             child: Container(
@@ -77,7 +79,7 @@ class _HomeState extends State<Home> {
             ),
           ],
         ),
-        body: _navigator.elementAt(_selectedIndex),
+        body: _navigator.elementAt(widget.selectedIndex),
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
@@ -97,7 +99,7 @@ class _HomeState extends State<Home> {
               label: 'PROFILE',
             ),
           ],
-          currentIndex: _selectedIndex,
+          currentIndex: widget.selectedIndex,
           unselectedItemColor: Colors.grey,
           selectedItemColor: Colors.amber[800],
           onTap: _onItemTapped,
