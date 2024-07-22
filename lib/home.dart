@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:runhub/profile.dart';
+import 'package:runhub/profileEdit.dart';
+import 'package:runhub/profileActivites.dart';
 import 'package:runhub/record.dart';
 import 'package:runhub/route.dart';
 import 'package:runhub/utilities/variables.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:runhub/profile.dart';
 import 'package:runhub/login.dart';
 
 class Home extends StatefulWidget {
@@ -15,7 +17,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  
   // get string email from sharedpreferences
   Future<String?> _getEmail() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -41,13 +42,18 @@ class _HomeState extends State<Home> {
     Text('ROUTE', style: appBarStyle),
     Text('RECORD', style: appBarStyle),
     Text('PROFILE', style: appBarStyle),
+    Text('EDIT PROFILE', style: appBarStyle),
+    Text('ACTIVITIES', style: appBarStyle),
   ];
 
   static const List<Widget> _navigator = <Widget>[
     HomePage(),
     RoutePage(),
     RecordPage(),
-    ProfilePage(),
+    ProfilesPage(),
+    ProfileEditPage(),
+    ProfActivities()
+
   ];
 
   void _onItemTapped(int index) {
@@ -62,6 +68,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
         backgroundColor: const Color(0xFFF1F1F1),
         appBar: AppBar(
+          backgroundColor: Colors.white,
           title: _widgetOptions.elementAt(widget.selectedIndex),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(Variables.appBarBottomBorder),
@@ -99,7 +106,7 @@ class _HomeState extends State<Home> {
               label: 'PROFILE',
             ),
           ],
-          currentIndex: widget.selectedIndex,
+          currentIndex: (widget.selectedIndex > 3) ? 3:widget.selectedIndex,
           unselectedItemColor: Colors.grey,
           selectedItemColor: Colors.amber[800],
           onTap: _onItemTapped,
