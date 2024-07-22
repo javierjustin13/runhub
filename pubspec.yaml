@@ -62,21 +62,7 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   assets:
-    - assets/login_image.jpg
-    - assets/logo_splash.png
-    - assets/logo.png
-    - assets/login.png
-    - assets/en_route/1.png
-    - assets/en_route/2.png
-    - assets/en_route/3.png
-    - assets/en_route/4.png
-    - assets/en_route/5.png
-    - assets/en_route/6.png
-    - assets/en_route/7.png
-    - assets/record_background.jpg
-    - assets/profile_picture.png
-    - assets/graph_image.png
-    - assets/photo_post.png
+    - assets/
 
   fonts:
     - family: SF
