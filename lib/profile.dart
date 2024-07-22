@@ -1,174 +1,163 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:runhub/home.dart';
+import 'package:runhub/profileEdit.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+class ProfilesPage extends StatefulWidget {
+  const ProfilesPage({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<ProfilesPage> createState() => _ProfilesPageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController locationController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-
-  @override
-  void dispose() {
-    nameController.dispose();
-    locationController.dispose();
-    emailController.dispose();
-    super.dispose();
-  }
-
-  void saveChanges() {
-    String name = nameController.text;
-    String location = locationController.text;
-    String email = emailController.text;
-
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text('Profile updated')));
-  }
-
+class _ProfilesPageState extends State<ProfilesPage> {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: const Color(0xFFF1F1F1),
       body: Container(
-        margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.045, vertical: screenHeight * 0.045),
-        color: Colors.white,
+        margin: EdgeInsets.symmetric(
+            horizontal: screenWidth * 0.045, vertical: screenHeight * 0.045),
         width: screenWidth * 0.9,
         height: screenHeight * 0.9,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.045, vertical: screenHeight * 0.045),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(top: 20.0),
-                child: Stack(
+        child: Column(
+          children: [
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Home(selectedIndex: 4)),
+                            );
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8.0),
+                  color: const Color(0xFFFBFBFB),
+                ),
+                padding: EdgeInsets.all(16.0),
+                child: const Row(
                   children: [
-                    const CircleAvatar(
-                      radius: 51,
-                      backgroundColor: Colors.orange,
-                      child: CircleAvatar(
-                        radius: 50,
-                        backgroundImage: AssetImage('assets/profile_picture.png'),
-                      ),
+                    CircleAvatar(
+                      radius: 40.0,
+                      backgroundImage: AssetImage('assets/profile_picture.png'),
                     ),
-                    Positioned(
-                      bottom: 0,
-                      right: 4,
-                      child: Container(
-                        width: 30,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.orange,
-                          border: Border.all(
-                            color: Colors.orange,
-                            width: 2,
-                          ),
+                    SizedBox(width: 16.0),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Abdhy Samoedra',
+                          style: TextStyle(
+                              fontSize: 20.0, fontWeight: FontWeight.bold),
                         ),
-                        child: const Icon(
-                          Icons.edit,
-                          size: 18,
-                          color: Colors.white,
-                        ),
-                      ),
+                        Text('Sentul, Bogor'),
+                        Text('Joined May 2024'),
+                      ],
                     ),
                   ],
                 ),
               ),
-              Container(
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Home(selectedIndex: 5,)),
+                );
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8.0),
+                  color: const Color(0xFFFBFBFB),
+                ),
                 margin: const EdgeInsets.only(top: 20.0),
-                alignment: Alignment.centerLeft,
-                child: const Text(
-                  'Name',
-                  style: TextStyle(
-                    fontSize: 18.0,
-                  ),
+                padding: const EdgeInsets.all(16.0),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Activities', style: TextStyle(fontSize: 18.0)),
+                    Icon(Icons.arrow_forward),
+                  ],
                 ),
               ),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'Abdhy Samoedra',
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.orange),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.orange),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 20.0),
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.0),
+                color: const Color(0xFFFBFBFB),
               ),
-              Container(
-                margin: const EdgeInsets.only(top: 20.0),
-                alignment: Alignment.centerLeft,
-                child: const Text(
-                  'Location',
-                  style: TextStyle(
-                    fontSize: 18.0,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                        child: const Text(
+                          'This Week',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'Sentul, Bogor',
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.orange),
-                    borderRadius: BorderRadius.circular(8),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Column(
+                        children: [
+                          Text('Distance'),
+                          Text(
+                            '0.00 km',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 12),
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text('Pace'),
+                          Text(
+                            '11:00/km',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 12),
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text('Time'),
+                          Text(
+                            '1h 12m 1s',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 12),
+                          )
+                        ],
+                      ),
+                    ],
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.orange),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 20.0),
-                alignment: Alignment.centerLeft,
-                child: const Text(
-                  'Email',
-                  style: TextStyle(
-                    fontSize: 18.0,
-                  ),
-                ),
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'abdhysamoedra@gmail.com',
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.orange),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Colors.orange),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.only(top: 100.0),
-                child: ElevatedButton(
-                  onPressed: saveChanges,
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.orange,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(7)),
+                  Row(children: [
+                    Expanded(
+                      child: Container(
+                        color: const Color(0xFFFBFBFB),
+                        child: const Image(
+                          image: AssetImage('assets/graph_image.png'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
-                  ),
-                  child: const Text('Save Changes'),
-                ),
-              )
-            ],
-          ),
+                  ])
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

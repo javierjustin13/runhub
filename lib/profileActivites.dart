@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:runhub/profile.dart';
+import 'package:runhub/profileEdit.dart';
 
 class ProfActivities extends StatefulWidget {
   const ProfActivities({super.key});
@@ -158,22 +158,24 @@ class _ProfActPageState extends State<ProfActivities> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Container(
-                          padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                          padding: const EdgeInsets.fromLTRB(15, 8, 0, 8),
                           child: const Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                            'Afternoon Run',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ),
-                          Text(
-                            'Pergi ke Venesia makan ketoprak',
-                            style: TextStyle(
-                              fontSize: 12,
-                            ),
-                          ),
+                                'Afternoon Run',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
+                              ),
+                              Text(
+                                'Pergi ke Venesia makan ketoprak',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                ),
+                              ),
                             ],
                           ),
                         ),

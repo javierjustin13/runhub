@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:runhub/splash.dart';
-import 'package:runhub/profileActivites.dart';
 import 'package:runhub/splash.dart';
 import 'package:runhub/utilities/custom_theme.dart';
 import 'package:runhub/utilities/variables.dart';
@@ -17,6 +15,6 @@ void main() async {
       ),
       primaryColor: CustomWidgets.defaultOrange,
     ),
-    home:   ProfActivities(),
+    home:   SplashScreen(),
   ));
 }
