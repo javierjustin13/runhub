@@ -17,7 +17,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  // get string email from sharedpreferences
   Future<String?> _getEmail() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('email');
@@ -57,7 +56,6 @@ class _HomeState extends State<Home> {
 
   void _onItemTapped(int index) {
     setState(() {
-      // set selected index from Home to index
       widget.selectedIndex = index;
     });
   }
@@ -468,9 +466,347 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.red,
-      child: const Text("INI HOMESC YA"),
+    return SingleChildScrollView(
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+            horizontal: Variables.widthPaddingDefault,
+            vertical: Variables.paddingDefault),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.0),
+                color: const Color(0xFFFBFBFB),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      const SizedBox(
+                        height: 27,
+                        child: Text(
+                          'Your Weekly Snapshot',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 21,
+                        child: Center(
+                          child: Text(
+                            'See More',
+                            style: TextStyle(
+                              color: Colors.orange,
+                              decoration: TextDecoration.underline,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('Activities'),
+                          const Text(
+                            '0',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 30),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.fromLTRB(4, 2, 4, 2),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.0),
+                              color: const Color(0xFFF7931E),
+                            ),
+                            child: const Text(
+                              'Hello container 1',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          )
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('Hello container 1'),
+                          const Text(
+                            '0h 0m',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 30),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.fromLTRB(4, 2, 4, 2),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.0),
+                              color: const Color(0xFFF7931E),
+                            ),
+                            child: const Text(
+                              'Hello container 1',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          )
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('Hello container 1'),
+                          const Text(
+                            '0.00 km',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 30),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.fromLTRB(4, 2, 4, 2),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.0),
+                              color: const Color(0xFFF7931E),
+                            ),
+                            child: const Text(
+                              'Hello container 1',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.0),
+                color: const Color(0xFFFBFBFB),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Suggested Challenge',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                  const Text(
+                    'Make accountability a little easier, more fun and earn rewards!',
+                    style: TextStyle(fontSize: 13),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.0),
+                              border:
+                                  Border.all(color: Colors.amber, width: 2.0)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 100,
+                                width: 180,
+                                child: Image(
+                                  image: AssetImage('assets/login.png'),
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                              const Text(
+                                '5K Run & Walk',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 17),
+                              ),
+                              const Text(
+                                'Chase your best 5K run with RunHub.',
+                                style: TextStyle(fontSize: 10),
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => Home(
+                                            selectedIndex: 1,
+                                          )));
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(
+                                        0xFFF7931E), // Button background color
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                          5), // Rounded corners
+                                    ),
+                                    minimumSize: const Size(80, 25)),
+                                child: const Text(
+                                  'Join Now',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.0),
+                              border:
+                                  Border.all(color: Colors.amber, width: 2.0)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 100,
+                                width: 180,
+                                child: Image(
+                                  image: AssetImage('assets/login.png'),
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                              const Text(
+                                '5K Run & Walk',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 17),
+                              ),
+                              const Text(
+                                'Chase your best 5K run with RunHub.',
+                                style: TextStyle(fontSize: 10),
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  // Handle button press
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(
+                                        0xFFF7931E), // Button background color
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                          5), // Rounded corners
+                                    ),
+                                    minimumSize: const Size(80, 25)),
+                                child: const Text(
+                                  'Join Now',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Container(
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8.0),
+                  color: const Color(0xFFFBFBFB),
+                ),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Center(
+                            child: ClipRRect(
+                          borderRadius: BorderRadius.circular(30.0),
+                          child: const Image(
+                            height: 50,
+                            width: 50,
+                            image: AssetImage('assets/login.png'),
+                            fit: BoxFit.cover,
+                          ),
+                        )),
+                        Container(
+                          padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                          child: const Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Jason Gay',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                              ),
+                              Row(
+                                children: [Text('This is your profile')],
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                          child: const Text(
+                            'Afternoon Run',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          children: [
+                            Text('Distance'),
+                            Text(
+                              '0.00 km',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 12),
+                            )
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text('Pace'),
+                            Text(
+                              '11:00/km',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 12),
+                            )
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Text('Time'),
+                            Text(
+                              '1h 12m 1s',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 12),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                    const Row(children: [
+                      Expanded(
+                        child: Image(
+                          image: AssetImage('assets/login.png'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ])
+                  ],
+                )),
+          ],
+        ),
+      ),
     );
   }
 }
