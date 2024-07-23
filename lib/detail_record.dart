@@ -11,6 +11,8 @@ class DetailRecordPage extends StatefulWidget {
 class _DetailRecordPageState extends State<DetailRecordPage> {
   late Stopwatch _stopwatch;
   late Duration _duration;
+  bool _isMapView = false;
+  bool _isStopped = false;
 
   @override
   void initState() {
@@ -45,50 +47,140 @@ class _DetailRecordPageState extends State<DetailRecordPage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const SizedBox(height: 20),
-          Column(
-            children: [
-              const Text(
-                'TIME',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.grey,
+          _isMapView
+              ? _buildMapView()
+              : _buildTimerView(hours, minutes, seconds),
+          Padding(
+            padding: const EdgeInsets.all(32.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _isStopped
+                    ? Row(
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              _stopwatch.start();
+                              setState(() {
+                                _isStopped = false;
+                              });
+                            },
+                            style: ElevatedButton.styleFrom(
+                              shape: const CircleBorder(),
+                              backgroundColor: Colors.green,
+                              padding: const EdgeInsets.all(24),
+                            ),
+                            child: const Icon(
+                              Icons.play_arrow,
+                              size: 30,
+                              color: Colors.white,
+                            ),
+                          ),
+                          const SizedBox(width: 30),
+                          TextButton(
+                            onPressed: () {
+                              // Implement your finish logic here
+                            },
+                            style: TextButton.styleFrom(
+                              backgroundColor: Colors.orange,
+                              padding: const EdgeInsets.all(24),
+                              foregroundColor: Colors.white,
+                            ),
+                            child: const Text(
+                              'Finish',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    : ElevatedButton(
+                        onPressed: () {
+                          _stopwatch.stop();
+                          setState(() {
+                            _isStopped = true;
+                          });
+                        },
+                        style: ElevatedButton.styleFrom(
+                          shape: const CircleBorder(),
+                          backgroundColor: Colors.orange,
+                          padding: const EdgeInsets.all(24),
+                        ),
+                        child: const Icon(
+                          Icons.stop,
+                          size: 30,
+                          color: Colors.white,
+                        ),
+                      ),
+                const SizedBox(width: 30),
+                CircleAvatar(
+                  radius: 30,
+                  backgroundColor: _isMapView ? Colors.blue : Colors.white,
+                  child: IconButton(
+                    icon: const Icon(
+                      Icons.location_on,
+                      color: Colors.orange,
+                      size: 30,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _isMapView = !_isMapView;
+                      });
+                    },
+                  ),
                 ),
-              ),
-              Text(
-                '$hours:$minutes:$seconds',
-                style: const TextStyle(
-                  fontSize: 48,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
-          const Column(
-            children: [
-              Text(
-                'SPLIT AVERAGE PACE',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.grey,
-                ),
-              ),
-              Text(
-                '- : -',
-                style: TextStyle(
-                  fontSize: 48,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                '/KM',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.grey,
-                ),
-              ),
-            ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTimerView(String hours, String minutes, String seconds) {
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            'TIME',
+            style: TextStyle(
+              fontSize: 18,
+              color: Colors.grey,
+            ),
           ),
+          Text(
+            '$hours:$minutes:$seconds',
+            style: const TextStyle(
+              fontSize: 48,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 40),
+          const Text(
+            'SPLIT AVERAGE PACE',
+            style: TextStyle(
+              fontSize: 18,
+              color: Colors.grey,
+            ),
+          ),
+          const Text(
+            '- : -',
+            style: TextStyle(
+              fontSize: 48,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const Text(
+            '/KM',
+            style: TextStyle(
+              fontSize: 18,
+              color: Colors.grey,
+            ),
+          ),
+          const SizedBox(height: 40),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -129,44 +221,20 @@ class _DetailRecordPageState extends State<DetailRecordPage> {
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.all(32.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const CircleAvatar(
-                  radius: 30,
-                  backgroundColor: Colors.white,
-                  child: Icon(
-                    Icons.location_on,
-                    color: Colors.orange,
-                    size: 30,
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    if (_stopwatch.isRunning) {
-                      _stopwatch.stop();
-                    } else {
-                      _stopwatch.start();
-                    }
-                    setState(() {});
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: const CircleBorder(),
-                    backgroundColor: Colors.orange,
-                    padding: const EdgeInsets.all(24),
-                  ),
-                  child: Icon(
-                    _stopwatch.isRunning ? Icons.stop : Icons.play_arrow,
-                    size: 30,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
-            ),
-          ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildMapView() {
+    return Expanded(
+      child: Center(
+        child: Image.asset(
+          'assets/record_background.jpg',
+          fit: BoxFit.cover,
+          width: double.infinity,
+          height: double.infinity,
+        ),
       ),
     );
   }
