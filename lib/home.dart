@@ -53,7 +53,6 @@ class _HomeState extends State<Home> {
     ProfilesPage(),
     ProfileEditPage(),
     ProfActivities()
-
   ];
 
   void _onItemTapped(int index) {
@@ -70,13 +69,7 @@ class _HomeState extends State<Home> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           title: _widgetOptions.elementAt(widget.selectedIndex),
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(Variables.appBarBottomBorder),
-            child: Container(
-              color: CustomWidgets.defaultOrange,
-              height: Variables.appBarBottomBorder,
-            ),
-          ),
+          bottom: CustomWidgets.defaultAppBarBottomBorder,
           actions: [
             IconButton(
               iconSize: 30,
@@ -106,7 +99,7 @@ class _HomeState extends State<Home> {
               label: 'PROFILE',
             ),
           ],
-          currentIndex: (widget.selectedIndex > 3) ? 3:widget.selectedIndex,
+          currentIndex: (widget.selectedIndex > 3) ? 3 : widget.selectedIndex,
           unselectedItemColor: Colors.grey,
           selectedItemColor: Colors.amber[800],
           onTap: _onItemTapped,
