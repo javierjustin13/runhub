@@ -37,7 +37,7 @@ class _ProfilesPageState extends State<ProfilesPage> {
                   borderRadius: BorderRadius.circular(8.0),
                   color: const Color(0xFFFBFBFB),
                 ),
-                padding: EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(16.0),
                 child: const Row(
                   children: [
                     CircleAvatar(

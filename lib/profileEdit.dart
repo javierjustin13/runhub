@@ -27,7 +27,7 @@ class _ProfilePageState extends State<ProfileEditPage> {
     String email = emailController.text;
 
     ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text('Profile updated')));
+        .showSnackBar(const SnackBar(content: Text('Profile updated')));
   }
 
   @override

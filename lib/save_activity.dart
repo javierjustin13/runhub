@@ -137,7 +137,8 @@ class _SaveActivityState extends State<SaveActivity> {
                               Image(
                                 width: screenWidth * 0.39,
                                 height: screenHeight * 0.195,
-                                image: AssetImage('assets/en_route/1.png'),
+                                image:
+                                    const AssetImage('assets/en_route/1.png'),
                                 alignment: Alignment.center,
                                 fit: BoxFit.cover,
                               ),
@@ -158,10 +159,10 @@ class _SaveActivityState extends State<SaveActivity> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.camera_alt_outlined,
+                              const Icon(Icons.camera_alt_outlined,
                                   color: CustomWidgets.defaultOrange),
                               TextButton(
-                                child: Text(
+                                child: const Text(
                                   'Add Photos',
                                   style: CustomWidgets.labelStyle,
                                 ),
@@ -179,16 +180,8 @@ class _SaveActivityState extends State<SaveActivity> {
                     width: screenWidth * 0.825,
                     child: ElevatedButton(
                       onPressed: () {},
-                      child: Text(
-                        'Change Map Type',
-                        style: TextStyle(
-                          fontFamily: 'SF',
-                          color: CustomWidgets.defaultOrange,
-                          fontSize: 17,
-                        ),
-                      ),
                       style: ElevatedButton.styleFrom(
-                        side: BorderSide(
+                        side: const BorderSide(
                           color: CustomWidgets.defaultOrange, // Border color
                           width: 2, // Border width
                         ),
@@ -199,6 +192,14 @@ class _SaveActivityState extends State<SaveActivity> {
                         elevation: 0,
                         foregroundColor: Colors.white,
                       ),
+                      child: const Text(
+                        'Change Map Type',
+                        style: TextStyle(
+                          fontFamily: 'SF',
+                          color: CustomWidgets.defaultOrange,
+                          fontSize: 17,
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -206,12 +207,12 @@ class _SaveActivityState extends State<SaveActivity> {
               SizedBox(
                 height: screenHeight * 0.025,
               ),
-              Text(
+              const Text(
                 textAlign: TextAlign.left,
                 "Details",
                 style: CustomWidgets.heading1,
               ),
-              Text("lanjut kerja sini jou blablablabla"),
+              const Text("lanjut kerja sini jou blablablabla"),
             ],
           ),
         ),

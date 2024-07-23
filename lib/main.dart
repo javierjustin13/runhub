@@ -15,6 +15,6 @@ void main() async {
       ),
       primaryColor: CustomWidgets.defaultOrange,
     ),
-    home:   SplashScreen(),
+    home: const SplashScreen(),
   ));
 }
