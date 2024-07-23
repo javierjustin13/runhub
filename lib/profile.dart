@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:runhub/home.dart';
-import 'package:runhub/profileEdit.dart';
 
 class ProfilesPage extends StatefulWidget {
   const ProfilesPage({super.key});
@@ -10,6 +10,25 @@ class ProfilesPage extends StatefulWidget {
 }
 
 class _ProfilesPageState extends State<ProfilesPage> {
+  String name = '';
+  String location = '';
+  String email = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProfileData();
+  }
+
+  Future<void> _loadProfileData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      name = prefs.getString('name') ?? '';
+      location = prefs.getString('location') ?? '';
+      email = prefs.getString('email') ?? '';
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -21,40 +40,39 @@ class _ProfilesPageState extends State<ProfilesPage> {
         margin: EdgeInsets.symmetric(
             horizontal: screenWidth * 0.045, vertical: screenHeight * 0.045),
         width: screenWidth * 0.9,
-        height: screenHeight * 0.9,
+        height: screenHeight * 2,
         child: Column(
           children: [
             GestureDetector(
               onTap: () {
                 Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Home(selectedIndex: 4)),
-                            );
+                  context,
+                  MaterialPageRoute(builder: (context) => Home(selectedIndex: 4)),
+                );
               },
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.0),
                   color: const Color(0xFFFBFBFB),
                 ),
-                padding: const EdgeInsets.all(16.0),
-                child: const Row(
+                padding: EdgeInsets.all(16.0),
+                child: Row(
                   children: [
-                    CircleAvatar(
+                    const CircleAvatar(
                       radius: 40.0,
                       backgroundImage: AssetImage('assets/profile_picture.png'),
                     ),
-                    SizedBox(width: 16.0),
+                    const SizedBox(width: 16.0),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Abdhy Samoedra',
-                          style: TextStyle(
+                          name.isNotEmpty ? name : 'Abdhy Samoedra',
+                          style: const TextStyle(
                               fontSize: 20.0, fontWeight: FontWeight.bold),
                         ),
-                        Text('Sentul, Bogor'),
-                        Text('Joined May 2024'),
+                        Text(location.isNotEmpty ? location : 'Sentul, Bogor'),
+                        const Text('Joined May 2024'),
                       ],
                     ),
                   ],
