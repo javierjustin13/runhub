@@ -73,13 +73,7 @@ class _HomeState extends State<Home> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           title: _widgetOptions.elementAt(widget.selectedIndex),
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(Variables.appBarBottomBorder),
-            child: Container(
-              color: CustomWidgets.defaultOrange,
-              height: Variables.appBarBottomBorder,
-            ),
-          ),
+          bottom: CustomWidgets.defaultAppBarBottomBorder,
           actions: [
             IconButton(
               iconSize: 30,

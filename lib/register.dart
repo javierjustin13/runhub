@@ -13,6 +13,7 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   EmailPasswordController emailPasswordController = EmailPasswordController();
+  bool _obscureCharacter = true;
 
   bool accepted = false;
   String errorMessage = "";
@@ -66,6 +67,9 @@ class _RegisterState extends State<Register> {
                   TextFormField(
                     controller: emailPasswordController.emailController,
                     decoration: const InputDecoration(
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: CustomWidgets.defaultOrange)),
                       border: UnderlineInputBorder(),
                       icon: Icon(Icons.email),
                       labelText: 'Email',
@@ -78,11 +82,27 @@ class _RegisterState extends State<Register> {
                   ),
                   TextFormField(
                     controller: emailPasswordController.passwordController,
-                    decoration: const InputDecoration(
+                    obscureText: _obscureCharacter, // Corrected this line
+                    decoration: InputDecoration(
+                      focusedBorder: const UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: CustomWidgets.defaultOrange)),
                       iconColor: Colors.grey,
-                      border: UnderlineInputBorder(),
-                      icon: Icon(Icons.password),
-                      suffix: Icon(Icons.visibility),
+                      border: const UnderlineInputBorder(),
+                      icon: const Icon(Icons.lock),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscureCharacter
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: Colors.grey,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _obscureCharacter = !_obscureCharacter;
+                          });
+                        },
+                      ),
                       labelText: 'Password',
                       labelStyle: CustomWidgets.labelStyle,
                     ),

@@ -57,6 +57,13 @@ class CustomWidgets {
     fontFamily: 'SF',
     fontSize: Variables.normalText,
   );
+  static PreferredSize defaultAppBarBottomBorder = PreferredSize(
+    preferredSize: const Size.fromHeight(Variables.appBarBottomBorder),
+    child: Container(
+      color: CustomWidgets.defaultOrange,
+      height: Variables.appBarBottomBorder,
+    ),
+  );
 }
 
 class EmailPasswordController {

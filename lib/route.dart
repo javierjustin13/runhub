@@ -68,6 +68,7 @@ class _RoutePageState extends State<RoutePage> {
                       onSwipe: (previous, current, direction) {
                         if (direction == CardSwiperDirection.right) {
                           confetti.play();
+                          
                         }
                         return true;
                       },

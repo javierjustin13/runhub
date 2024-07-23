@@ -16,6 +16,8 @@ class _LoginState extends State<Login> {
 
   String errorMessage = "";
 
+  bool _obscureCharacter = true;
+
   Future<void> _login() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLoggedIn', true);
@@ -66,6 +68,9 @@ class _LoginState extends State<Login> {
                   TextFormField(
                     controller: emailPasswordController.emailController,
                     decoration: const InputDecoration(
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide:
+                                BorderSide(color: CustomWidgets.defaultOrange)),
                         border: UnderlineInputBorder(),
                         icon: Icon(Icons.email),
                         labelText: 'Email',
@@ -77,16 +82,31 @@ class _LoginState extends State<Login> {
                   ),
                   TextFormField(
                     controller: emailPasswordController.passwordController,
-                    decoration: const InputDecoration(
+                    obscureText: _obscureCharacter, // Corrected this line
+                    decoration: InputDecoration(
+                      focusedBorder: const UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: CustomWidgets.defaultOrange)),
                       iconColor: Colors.grey,
-                      border: UnderlineInputBorder(),
-                      icon: Icon(Icons.password),
-                      suffix: Icon(Icons.visibility),
+                      border: const UnderlineInputBorder(),
+                      icon: const Icon(Icons.lock),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscureCharacter
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: Colors.grey,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _obscureCharacter = !_obscureCharacter;
+                          });
+                        },
+                      ),
                       labelText: 'Password',
                       labelStyle: CustomWidgets.labelStyle,
                     ),
                   ),
-
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.01,
                   ),
@@ -95,7 +115,6 @@ class _LoginState extends State<Login> {
                     errorMessage,
                     style: CustomWidgets.errorText,
                   )),
-
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.01,
                   ),
@@ -186,7 +205,6 @@ class _LoginState extends State<Login> {
                           foregroundColor: Colors.black,
                         ),
                         icon: const Icon(Icons.apple),
-                        iconAlignment: IconAlignment.start,
                         label: const Text(
                           "Login with Apple",
                           style: CustomWidgets.normalText,
@@ -199,7 +217,6 @@ class _LoginState extends State<Login> {
                       width: screenWidth * Variables.buttonWidthToScreen,
                       height: screenHeight * Variables.buttonHeightToScreen,
                       child: ElevatedButton.icon(
-                          iconAlignment: IconAlignment.start,
                           onPressed: _login,
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
@@ -215,7 +232,6 @@ class _LoginState extends State<Login> {
                             "Login with Facebook",
                             style: CustomWidgets.normalText,
                           ))),
-                  // create not have an account yet button
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
