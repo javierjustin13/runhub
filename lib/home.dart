@@ -7,6 +7,10 @@ import 'package:runhub/utilities/variables.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:runhub/profile.dart';
 import 'package:runhub/login.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter/widgets.dart';
 
 class Home extends StatefulWidget {
   int selectedIndex = 0;
@@ -47,8 +51,8 @@ class _HomeState extends State<Home> {
   ];
 
   static const List<Widget> _navigator = <Widget>[
-    RoutePage(),
     HomePage(),
+    RoutePage(),
     RecordPage(),
     ProfilesPage(),
     ProfileEditPage(),
@@ -116,7 +120,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Widget padded(Widget child) {
-    return Padding(padding: const EdgeInsets.all(8.0), child: child);
+    return Padding(
+        padding: const EdgeInsets.fromLTRB(10, 5, 10, 5), child: child);
   }
 
   @override
@@ -125,7 +130,7 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Container(
+          padded(Container(
             padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.0),
@@ -188,9 +193,7 @@ class _HomePageState extends State<HomePage> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          child: const Text('Hello container 1'),
-                        ),
+                        const Text('Hello container 1'),
                         const Text(
                           '0h 0m',
                           style: TextStyle(
@@ -212,9 +215,7 @@ class _HomePageState extends State<HomePage> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          child: const Text('Hello container 1'),
-                        ),
+                        const Text('Hello container 1'),
                         const Text(
                           '0.00 km',
                           style: TextStyle(
@@ -237,8 +238,8 @@ class _HomePageState extends State<HomePage> {
                 )
               ],
             ),
-          ),
-          Container(
+          )),
+          padded(Container(
             padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.0),
@@ -248,7 +249,7 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  'Suggested Challange',
+                  'Suggested Challenge',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 const Text(
@@ -258,10 +259,11 @@ class _HomePageState extends State<HomePage> {
                 Container(
                   padding: const EdgeInsets.only(top: 10),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Container(
-                        padding: EdgeInsets.all(8),
+                        width: 190, // Specify a fixed width for containers
+                        padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8.0),
                             border:
@@ -269,14 +271,11 @@ class _HomePageState extends State<HomePage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Column(children: [
-                              const Expanded(
-                                child: Image(
-                                  image: AssetImage('assets/login.png'),
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ]),
+                            const Image(
+                              image: AssetImage('assets/image4.png'),
+                              height: 100, // Specify height
+                              fit: BoxFit.contain,
+                            ),
                             const Text(
                               '5K Run & Walk',
                               style: TextStyle(
@@ -291,13 +290,12 @@ class _HomePageState extends State<HomePage> {
                                 // Handle button press
                               },
                               style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(
-                                      0xFFF7931E), // Button background color
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                        5), // Rounded corners
-                                  ),
-                                  minimumSize: Size(80, 25)),
+                                backgroundColor: const Color(0xFFF7931E),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                minimumSize: const Size(80, 25),
+                              ),
                               child: const Text(
                                 'Join Now',
                                 style: TextStyle(color: Colors.white),
@@ -307,7 +305,8 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.all(8),
+                        width: 190, // Specify a fixed width for containers
+                        padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8.0),
                             border:
@@ -315,14 +314,11 @@ class _HomePageState extends State<HomePage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Column(children: [
-                              const Expanded(
-                                child: Image(
-                                  image: AssetImage('assets/login.png'),
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ]),
+                            const Image(
+                              image: AssetImage('assets/image4.png'),
+                              height: 100, // Specify height
+                              fit: BoxFit.contain,
+                            ),
                             const Text(
                               '5K Run & Walk',
                               style: TextStyle(
@@ -337,13 +333,12 @@ class _HomePageState extends State<HomePage> {
                                 // Handle button press
                               },
                               style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(
-                                      0xFFF7931E), // Button background color
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                        5), // Rounded corners
-                                  ),
-                                  minimumSize: const Size(80, 25)),
+                                backgroundColor: const Color(0xFFF7931E),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                minimumSize: const Size(80, 25),
+                              ),
                               child: const Text(
                                 'Join Now',
                                 style: TextStyle(color: Colors.white),
@@ -357,8 +352,8 @@ class _HomePageState extends State<HomePage> {
                 )
               ],
             ),
-          ),
-          Container(
+          )),
+          padded(Container(
             padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.0),
@@ -368,14 +363,15 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Row(
                   children: [
-                    Center(
-                        child: ClipRRect(
-                      borderRadius: BorderRadius.circular(30.0),
-                      child: const Image(
-                        height: 50,
-                        width: 50,
-                        image: AssetImage('assets/login.png'),
-                        fit: BoxFit.cover,
+                    padded(Center(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(30.0),
+                        child: const Image(
+                          height: 50,
+                          width: 50,
+                          image: AssetImage('assets/image1.jpg'),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     )),
                     Container(
@@ -388,31 +384,27 @@ class _HomePageState extends State<HomePage> {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 15),
                           ),
-                          Row(
-                            children: [Text('This is your profile')],
-                          )
+                          Text('This is your profile'),
                         ],
                       ),
                     ),
                   ],
                 ),
-                
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-                        child: const Text(
-                          'Afternoon Run',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
+                      child: const Text(
+                        'Afternoon Run',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
                         ),
                       ),
-                    ],
-                  ),
-                
+                    ),
+                  ],
+                ),
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -448,17 +440,18 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ],
                 ),
-                const Column(children: [
-                  Expanded(
-                    child: Image(
-                      image: AssetImage('assets/login.png'),
+                padded(const Row(
+                  children: [
+                    Expanded(
+                        child: Image(
+                      image: AssetImage('assets/image2.jpg'),
                       fit: BoxFit.cover,
-                    ),
-                  ),
-                ])
+                    ))
+                  ],
+                ))
               ],
-            )),
-          
+            ),
+          )),
         ],
       ),
     );
