@@ -8,11 +8,29 @@ class DetailRecordPage extends StatefulWidget {
   State<DetailRecordPage> createState() => _DetailRecordPageState();
 }
 
-class _DetailRecordPageState extends State<DetailRecordPage> {
+class _DetailRecordPageState extends State<DetailRecordPage>
+    with SingleTickerProviderStateMixin {
   late Stopwatch _stopwatch;
   late Duration _duration;
   bool _isMapView = false;
   bool _isStopped = false;
+
+  final List<String> _motivationalMessages = [
+    "Keep going, you're doing great!",
+    "Every step counts!",
+    "Push your limits!",
+    "Stay strong and keep moving!",
+    "Believe in yourself!",
+    "You can do it!",
+    "Never give up!",
+    "Your only limit is you!",
+    "Dream it. Wish it. Do it.",
+    "Success is no accident!",
+  ];
+
+  String _currentMotivationalMessage = '';
+  late AnimationController _animationController;
+  late Animation<double> _fadeAnimation;
 
   @override
   void initState() {
@@ -20,6 +38,16 @@ class _DetailRecordPageState extends State<DetailRecordPage> {
     _stopwatch = Stopwatch();
     _duration = const Duration();
     _startTimer();
+    _startMotivationalMessageTimer();
+
+    _animationController = AnimationController(
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    );
+
+    _fadeAnimation = Tween(begin: 0.0, end: 1.0).animate(_animationController);
+
+    _animationController.forward();
   }
 
   void _startTimer() {
@@ -31,9 +59,22 @@ class _DetailRecordPageState extends State<DetailRecordPage> {
     });
   }
 
+  void _startMotivationalMessageTimer() {
+    _currentMotivationalMessage = _motivationalMessages[0];
+    Timer.periodic(const Duration(seconds: 6), (Timer timer) {
+      setState(() {
+        _currentMotivationalMessage =
+            _motivationalMessages[timer.tick % _motivationalMessages.length];
+        _animationController.reset();
+        _animationController.forward();
+      });
+    });
+  }
+
   @override
   void dispose() {
     _stopwatch.stop();
+    _animationController.dispose();
     super.dispose();
   }
 
@@ -52,84 +93,117 @@ class _DetailRecordPageState extends State<DetailRecordPage> {
               : _buildTimerView(hours, minutes, seconds),
           Padding(
             padding: const EdgeInsets.all(32.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: Column(
               children: [
-                _isStopped
-                    ? Row(
-                        children: [
-                          ElevatedButton(
+                FadeTransition(
+                  opacity: _fadeAnimation,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 20, horizontal: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.orangeAccent,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          spreadRadius: 3,
+                          blurRadius: 5,
+                          offset: Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
+                    ),
+                    child: Text(
+                      _currentMotivationalMessage,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _isStopped
+                        ? Row(
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  _stopwatch.start();
+                                  setState(() {
+                                    _isStopped = false;
+                                  });
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  shape: const CircleBorder(),
+                                  backgroundColor: Colors.green,
+                                  padding: const EdgeInsets.all(24),
+                                ),
+                                child: const Icon(
+                                  Icons.play_arrow,
+                                  size: 30,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              const SizedBox(width: 30),
+                              TextButton(
+                                onPressed: () {
+                                  // Implement your finish logic here
+                                },
+                                style: TextButton.styleFrom(
+                                  backgroundColor: Colors.orange,
+                                  padding: const EdgeInsets.all(24),
+                                  foregroundColor: Colors.white,
+                                ),
+                                child: const Text(
+                                  'Finish',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        : ElevatedButton(
                             onPressed: () {
-                              _stopwatch.start();
+                              _stopwatch.stop();
                               setState(() {
-                                _isStopped = false;
+                                _isStopped = true;
                               });
                             },
                             style: ElevatedButton.styleFrom(
                               shape: const CircleBorder(),
-                              backgroundColor: Colors.green,
+                              backgroundColor: Colors.orange,
                               padding: const EdgeInsets.all(24),
                             ),
                             child: const Icon(
-                              Icons.play_arrow,
+                              Icons.stop,
                               size: 30,
                               color: Colors.white,
                             ),
                           ),
-                          const SizedBox(width: 30),
-                          TextButton(
-                            onPressed: () {
-                              // Implement your finish logic here
-                            },
-                            style: TextButton.styleFrom(
-                              backgroundColor: Colors.orange,
-                              padding: const EdgeInsets.all(24),
-                              foregroundColor: Colors.white,
-                            ),
-                            child: const Text(
-                              'Finish',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ],
-                      )
-                    : ElevatedButton(
+                    const SizedBox(width: 30),
+                    CircleAvatar(
+                      radius: 30,
+                      backgroundColor: _isMapView ? Colors.blue : Colors.white,
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.location_on,
+                          color: Colors.orange,
+                          size: 30,
+                        ),
                         onPressed: () {
-                          _stopwatch.stop();
                           setState(() {
-                            _isStopped = true;
+                            _isMapView = !_isMapView;
                           });
                         },
-                        style: ElevatedButton.styleFrom(
-                          shape: const CircleBorder(),
-                          backgroundColor: Colors.orange,
-                          padding: const EdgeInsets.all(24),
-                        ),
-                        child: const Icon(
-                          Icons.stop,
-                          size: 30,
-                          color: Colors.white,
-                        ),
                       ),
-                const SizedBox(width: 30),
-                CircleAvatar(
-                  radius: 30,
-                  backgroundColor: _isMapView ? Colors.blue : Colors.white,
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.location_on,
-                      color: Colors.orange,
-                      size: 30,
                     ),
-                    onPressed: () {
-                      setState(() {
-                        _isMapView = !_isMapView;
-                      });
-                    },
-                  ),
+                  ],
                 ),
               ],
             ),
