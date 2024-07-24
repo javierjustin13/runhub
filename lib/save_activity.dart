@@ -212,7 +212,178 @@ class _SaveActivityState extends State<SaveActivity> {
                 "Details",
                 style: CustomWidgets.heading1,
               ),
-              const Text("lanjut kerja sini jou blablablabla"),
+              SizedBox(height: screenHeight * 0.025),
+              DropdownButtonFormField(
+                decoration: const InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: CustomWidgets.defaultOrange),
+                  ),
+                  border: UnderlineInputBorder(),
+                ),
+                hint: const Text(
+                  'Type of run',
+                  style: CustomWidgets.labelStyle,
+                ),
+                items: const [
+                  DropdownMenuItem(
+                    value: 'Long Run',
+                    child: Row(
+                      children: [
+                        Icon(Icons.directions_run),
+                        SizedBox(width: 10),
+                        Text("Long Run")
+                      ],
+                    ),
+                  ),
+                  DropdownMenuItem(
+                    value: 'Workout',
+                    child: Row(
+                      children: [
+                        Icon(Icons.sports_gymnastics),
+                        SizedBox(width: 10),
+                        Text("Workout")
+                      ],
+                    ),
+                  ),
+                  DropdownMenuItem(
+                    value: 'Race',
+                    child: Row(
+                      children: [
+                        Icon(Icons.flag),
+                        SizedBox(width: 10),
+                        Text("Race")
+                      ],
+                    ),
+                  ),
+                  
+                ],
+                onChanged: (value) {},
+              ),
+              SizedBox(height: screenHeight * 0.025),
+              DropdownButtonFormField(
+                decoration: const InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: CustomWidgets.defaultOrange),
+                  ),
+                  border: UnderlineInputBorder(),
+                ),
+                hint: const Text(
+                  'How did that activity feel?',
+                  style: CustomWidgets.labelStyle,
+                ),
+                items: const [
+                  DropdownMenuItem(
+                    value: 'Easy',
+                    child: Row(
+                      children: [
+                        Icon(Icons.filter_1),
+                        SizedBox(width: 10),
+                        Text("Easy")
+                      ],
+                    ),
+                  ),
+                  DropdownMenuItem(
+                    value: 'Moderate',
+                    child: Row(
+                      children: [
+                        Icon(Icons.filter_2),
+                        SizedBox(width: 10),
+                        Text("Moderate")
+                      ],
+                    ),
+                  ),
+                  DropdownMenuItem(
+                    value: 'Max Effort',
+                    child: Row(
+                      children: [
+                        Icon(Icons.filter_3),
+                        SizedBox(width: 10),
+                        Text("Max Effort")
+                      ],
+                    ),
+                  ),
+                ],
+                onChanged: (value) {},
+              ),
+              SizedBox(height: screenHeight * 0.025),
+              TextFormField(
+                decoration: const InputDecoration(
+                  iconColor: Colors.grey,
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: CustomWidgets.defaultOrange),
+                  ),
+                  border: UnderlineInputBorder(),
+                  labelText: 'Jot down private notes here. Only you can see these.',
+                  focusColor: CustomWidgets.defaultOrange,
+                  fillColor: CustomWidgets.defaultOrange,
+                  labelStyle: CustomWidgets.labelStyle,
+                ),
+              ),
+              SizedBox(height: screenHeight * 0.025),
+              DropdownButtonFormField(
+                decoration: const InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: CustomWidgets.defaultOrange),
+                  ),
+                  border: UnderlineInputBorder(),
+                ),
+                hint: const Text(
+                  'Who can see?',
+                  style: CustomWidgets.labelStyle,
+                ),
+                items: const [
+                  DropdownMenuItem(
+                    value: 'Everyone',
+                    child: Row(
+                      children: [
+                        Icon(Icons.groups),
+                        SizedBox(width: 10),
+                        Text("Everyone")
+                      ],
+                    ),
+                  ),
+                  DropdownMenuItem(
+                    value: 'Only You',
+                    child: Row(
+                      children: [
+                        Icon(Icons.man),
+                        SizedBox(width: 10),
+                        Text("Only You")
+                      ],
+                    ),
+                  ),
+                ],
+                onChanged: (value) {},
+              ),
+              SizedBox(height: screenHeight * 0.025),
+              SizedBox(
+                    width: screenWidth * 0.825,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        side: const BorderSide(
+                          color: CustomWidgets.defaultOrange, // Border color
+                          width: 2, // Border width
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        backgroundColor: Colors.white,
+                        elevation: 0,
+                        foregroundColor: Colors.white,
+                      ),
+                      child: const Text(
+                        'Discard Activity',
+                        style: TextStyle(
+                          fontFamily: 'SF',
+                          color: CustomWidgets.defaultOrange,
+                          fontSize: 17,
+                        ),
+                      ),
+                    ),
+                  ),
             ],
           ),
         ),

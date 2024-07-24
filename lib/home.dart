@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:runhub/profileEdit.dart';
-import 'package:runhub/profileActivites.dart';
+import 'package:runhub/profile_edit.dart';
+import 'package:runhub/profile_activites.dart';
 import 'package:runhub/record.dart';
 import 'package:runhub/route.dart';
 import 'package:runhub/utilities/variables.dart';
