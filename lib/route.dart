@@ -2,7 +2,6 @@ import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:runhub/home.dart';
-import 'package:runhub/record.dart';
 import 'package:runhub/utilities/variables.dart';
 
 class RoutePage extends StatefulWidget {
@@ -68,7 +67,6 @@ class _RoutePageState extends State<RoutePage> {
                       onSwipe: (previous, current, direction) {
                         if (direction == CardSwiperDirection.right) {
                           confetti.play();
-                          
                         }
                         return true;
                       },

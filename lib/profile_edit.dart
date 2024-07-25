@@ -33,7 +33,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
     await prefs.setString('email', email);
 
     ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text('Profile updated')));
+        .showSnackBar(const SnackBar(content: Text('Profile updated')));
 
     Navigator.pushReplacement(
       context,
@@ -47,14 +47,18 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: const Color(0xFFF1F1F1),
-      body: SingleChildScrollView( // Add SingleChildScrollView here
+      body: SingleChildScrollView(
+        // Add SingleChildScrollView here
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.045, vertical: screenHeight * 0.045),
+          margin: EdgeInsets.symmetric(
+              horizontal: screenWidth * 0.045, vertical: screenHeight * 0.045),
           color: Colors.white,
           width: screenWidth * 0.9,
           height: screenHeight * 0.9,
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.045, vertical: screenHeight * 0.045),
+            padding: EdgeInsets.symmetric(
+                horizontal: screenWidth * 0.045,
+                vertical: screenHeight * 0.045),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,7 +72,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                         backgroundColor: Colors.orange,
                         child: CircleAvatar(
                           radius: 50,
-                          backgroundImage: AssetImage('assets/profile_picture.png'),
+                          backgroundImage:
+                              AssetImage('assets/profile_picture.png'),
                         ),
                       ),
                       Positioned(

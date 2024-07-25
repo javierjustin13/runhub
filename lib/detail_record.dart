@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:runhub/save_activity.dart'; // Ensure you have the correct import path
 
 class DetailRecordPage extends StatefulWidget {
   const DetailRecordPage({super.key});
@@ -108,7 +109,8 @@ class _DetailRecordPageState extends State<DetailRecordPage>
                           color: Colors.black.withOpacity(0.2),
                           spreadRadius: 3,
                           blurRadius: 5,
-                          offset: Offset(0, 3), // changes position of shadow
+                          offset:
+                              const Offset(0, 3), // changes position of shadow
                         ),
                       ],
                     ),
@@ -151,7 +153,13 @@ class _DetailRecordPageState extends State<DetailRecordPage>
                               const SizedBox(width: 30),
                               TextButton(
                                 onPressed: () {
-                                  // Implement your finish logic here
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const SaveActivity(),
+                                    ),
+                                  );
                                 },
                                 style: TextButton.styleFrom(
                                   backgroundColor: Colors.orange,

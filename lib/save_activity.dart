@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:runhub/home.dart';
-import 'package:runhub/login.dart';
 import 'package:runhub/utilities/variables.dart';
 
 class SaveActivity extends StatefulWidget {
@@ -255,7 +254,6 @@ class _SaveActivityState extends State<SaveActivity> {
                       ],
                     ),
                   ),
-                  
                 ],
                 onChanged: (value) {},
               ),
@@ -313,7 +311,8 @@ class _SaveActivityState extends State<SaveActivity> {
                     borderSide: BorderSide(color: CustomWidgets.defaultOrange),
                   ),
                   border: UnderlineInputBorder(),
-                  labelText: 'Jot down private notes here. Only you can see these.',
+                  labelText:
+                      'Jot down private notes here. Only you can see these.',
                   focusColor: CustomWidgets.defaultOrange,
                   fillColor: CustomWidgets.defaultOrange,
                   labelStyle: CustomWidgets.labelStyle,
@@ -357,33 +356,33 @@ class _SaveActivityState extends State<SaveActivity> {
               ),
               SizedBox(height: screenHeight * 0.025),
               SizedBox(
-                    width: screenWidth * 0.825,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        side: const BorderSide(
-                          color: CustomWidgets.defaultOrange, // Border color
-                          width: 2, // Border width
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        backgroundColor: Colors.white,
-                        elevation: 0,
-                        foregroundColor: Colors.white,
-                      ),
-                      child: const Text(
-                        'Discard Activity',
-                        style: TextStyle(
-                          fontFamily: 'SF',
-                          color: CustomWidgets.defaultOrange,
-                          fontSize: 17,
-                        ),
-                      ),
+                width: screenWidth * 0.825,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    side: const BorderSide(
+                      color: CustomWidgets.defaultOrange, // Border color
+                      width: 2, // Border width
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    backgroundColor: Colors.white,
+                    elevation: 0,
+                    foregroundColor: Colors.white,
+                  ),
+                  child: const Text(
+                    'Discard Activity',
+                    style: TextStyle(
+                      fontFamily: 'SF',
+                      color: CustomWidgets.defaultOrange,
+                      fontSize: 17,
                     ),
                   ),
+                ),
+              ),
             ],
           ),
         ),

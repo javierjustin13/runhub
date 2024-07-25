@@ -47,7 +47,8 @@ class _ProfilesPageState extends State<ProfilesPage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Home(selectedIndex: 4)),
+                  MaterialPageRoute(
+                      builder: (context) => Home(selectedIndex: 4)),
                 );
               },
               child: Container(
@@ -55,7 +56,7 @@ class _ProfilesPageState extends State<ProfilesPage> {
                   borderRadius: BorderRadius.circular(8.0),
                   color: const Color(0xFFFBFBFB),
                 ),
-                padding: EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(16.0),
                 child: Row(
                   children: [
                     const CircleAvatar(
@@ -83,7 +84,10 @@ class _ProfilesPageState extends State<ProfilesPage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Home(selectedIndex: 5,)),
+                  MaterialPageRoute(
+                      builder: (context) => Home(
+                            selectedIndex: 5,
+                          )),
                 );
               },
               child: Container(
