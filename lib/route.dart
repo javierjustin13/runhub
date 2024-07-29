@@ -39,7 +39,7 @@ class _RoutePageState extends State<RoutePage> {
             ),
             Container(
               color: Colors.white,
-              width: screenWidth * 0.9,
+              width: screenWidth * 0.95,
               height: screenHeight * 0.035,
               child: const Center(
                 child: Text("Choose Your Favorite Route!",
@@ -53,7 +53,7 @@ class _RoutePageState extends State<RoutePage> {
               children: [
                 Container(
                     color: Colors.white,
-                    width: screenWidth * 0.9,
+                    width: screenWidth * 0.95,
                     height: screenHeight * 0.68,
                     child: CardSwiper(
                       cardBuilder: (context, index, x, y) {
@@ -112,10 +112,12 @@ class _RoutePageState extends State<RoutePage> {
                             confetti.play();
                             controller.swipe(CardSwiperDirection.right);
                             // go to record page
-                            Navigator.pushReplacement(
-                              context,
+                            Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(
-                                  builder: (context) => Home(selectedIndex: 2)),
+                                  builder: (context) => Home(
+                                        selectedIndex: 2,
+                                      )),
+                              (Route<dynamic> route) => false,
                             );
                           });
                         },
