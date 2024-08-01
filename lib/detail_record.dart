@@ -32,6 +32,7 @@ class _DetailRecordPageState extends State<DetailRecordPage>
   String _currentMotivationalMessage = '';
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
+  Timer? _motivationalMessageTimer;
 
   @override
   void initState() {
@@ -54,27 +55,32 @@ class _DetailRecordPageState extends State<DetailRecordPage>
   void _startTimer() {
     _stopwatch.start();
     Timer.periodic(const Duration(seconds: 1), (Timer timer) {
-      setState(() {
-        _duration = _stopwatch.elapsed;
-      });
+      if (mounted) {
+        setState(() {
+          _duration = _stopwatch.elapsed;
+        });
+      }
     });
   }
 
   void _startMotivationalMessageTimer() {
     _currentMotivationalMessage = _motivationalMessages[0];
-    Timer.periodic(const Duration(seconds: 6), (Timer timer) {
-      setState(() {
-        _currentMotivationalMessage =
-            _motivationalMessages[timer.tick % _motivationalMessages.length];
-        _animationController.reset();
-        _animationController.forward();
-      });
+    _motivationalMessageTimer = Timer.periodic(const Duration(seconds: 6), (Timer timer) {
+      if (mounted) {
+        setState(() {
+          _currentMotivationalMessage =
+              _motivationalMessages[timer.tick % _motivationalMessages.length];
+          _animationController.reset();
+          _animationController.forward();
+        });
+      }
     });
   }
 
   @override
   void dispose() {
     _stopwatch.stop();
+    _motivationalMessageTimer?.cancel(); // Cancel the motivational message timer
     _animationController.dispose();
     super.dispose();
   }
