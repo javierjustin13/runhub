@@ -174,60 +174,81 @@ class _HomePageState extends State<HomePage> {
                               fontWeight: FontWeight.bold, fontSize: 30),
                         ),
                         Container(
-                          padding: const EdgeInsets.fromLTRB(4, 2, 4, 2),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.0),
-                            color: const Color(0xFFF7931E),
-                          ),
-                          child: const Text(
-                            'Hello container 1',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        )
+                            padding: const EdgeInsets.fromLTRB(3, 1, 5, 1),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.0),
+                              color: const Color(0xFFF7931E),
+                            ),
+                            child: const Row(
+                              children: [
+                                Icon(Icons.keyboard_arrow_up,
+                                    color: Colors.white),
+                                Text(
+                                  '0',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ))
                       ],
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('Hello container 1'),
+                        const Text('Time'),
                         const Text(
                           '0h 0m',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 30),
                         ),
                         Container(
-                          padding: const EdgeInsets.fromLTRB(4, 2, 4, 2),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.0),
-                            color: const Color(0xFFF7931E),
-                          ),
-                          child: const Text(
-                            'Hello container 1',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        )
+                            padding: const EdgeInsets.fromLTRB(3, 1, 5, 1),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.0),
+                              color: const Color(0xFFF7931E),
+                            ),
+                            child: const Row(
+                              children: [
+                                Icon(Icons.keyboard_arrow_up,
+                                    color: Colors.white),
+                                Text(
+                                  '0h 0m',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ))
                       ],
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('Hello container 1'),
+                        const Text('Distance'),
                         const Text(
                           '0.00 km',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 30),
                         ),
                         Container(
-                          padding: const EdgeInsets.fromLTRB(4, 2, 4, 2),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.0),
-                            color: const Color(0xFFF7931E),
-                          ),
-                          child: const Text(
-                            'Hello container 1',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        )
+                            padding: const EdgeInsets.fromLTRB(3, 1, 5, 1),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.0),
+                              color: const Color(0xFFF7931E),
+                            ),
+                            child: const Row(
+                              children: [
+                                Icon(Icons.keyboard_arrow_up,
+                                    color: Colors.white),
+                                Text(
+                                  '0.00 km',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ))
                       ],
                     )
                   ],
