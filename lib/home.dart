@@ -397,7 +397,7 @@ class _HomePageState extends State<HomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Jason Gay',
+                            'Jason Cm',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 15),
                           ),
@@ -462,6 +462,105 @@ class _HomePageState extends State<HomePage> {
                     Expanded(
                         child: Image(
                       image: AssetImage('assets/image2.jpg'),
+                      fit: BoxFit.cover,
+                    ))
+                  ],
+                ))
+              ],
+            ),
+          )),
+          padded(Container(
+            padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8.0),
+              color: const Color(0xFFFBFBFB),
+            ),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    padded(Center(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(30.0),
+                        child: const Image(
+                          height: 50,
+                          width: 50,
+                          image: AssetImage('assets/image1.jpg'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    )),
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                      child: const Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Aku Ganteng',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                          Text('This is your profile'),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
+                      child: const Text(
+                        'Afternoon Run',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Column(
+                      children: [
+                        Text('Distance'),
+                        Text(
+                          '0.00 km',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 12),
+                        )
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Text('Pace'),
+                        Text(
+                          '11:00/km',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 12),
+                        )
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Text('Time'),
+                        Text(
+                          '1h 12m 1s',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 12),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+                padded(const Row(
+                  children: [
+                    Expanded(
+                        child: Image(
+                      image: AssetImage('assets/image5.png'),
                       fit: BoxFit.cover,
                     ))
                   ],
