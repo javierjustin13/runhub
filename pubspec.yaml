@@ -2,7 +2,7 @@ name: runhub
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.4.3 <4.0.0'
+  sdk: ">=3.4.3 <4.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -37,11 +37,21 @@ dependencies:
   flutter_native_splash: ^2.4.1
   google_fonts: ^6.2.1
   shared_preferences: ^2.2.3
+  flutter_card_swiper: ^7.0.1
+  palette_generator: ^0.3.3+4
+  fluttertoast: ^8.2.6
+  confetti: ^0.7.0
+  rename_app: ^1.6.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  
+  flutter_launcher_icons: "^0.13.1"
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/launcher_icon.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -58,24 +68,35 @@ flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
-  assets: 
+  assets:
     - assets/login_image.jpg
     - assets/logo_splash.png
     - assets/logo.png
     - assets/login.png
-  
+    - assets/en_route/1.png
+    - assets/en_route/2.png
+    - assets/en_route/3.png
+    - assets/en_route/4.png
+    - assets/en_route/5.png
+    - assets/en_route/6.png
+    - assets/en_route/7.png
+    - assets/record_background.jpg
+    - assets/profile_picture.png
+    - assets/graph_image.png
+    - assets/photo_post.png
+    - assets/
+
   fonts:
-  - family: SF
-    fonts:
-      - asset: assets/fonts/SF-Pro-Display-Regular.otf
-        weight: 500
-      
-      - asset: assets/fonts/SF-Pro-Display-Medium.otf
-        weight: 600
+    - family: SF
+      fonts:
+        - asset: assets/fonts/SF-Pro-Display-Regular.otf
+          weight: 500
 
-      - asset: assets/fonts/SF-Pro-Display-Bold.otf
-        weight: 700
+        - asset: assets/fonts/SF-Pro-Display-Medium.otf
+          weight: 600
 
+        - asset: assets/fonts/SF-Pro-Display-Bold.otf
+          weight: 700
 
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
@@ -118,4 +139,3 @@ flutter_native_splash:
     icon_background_color: "#ffffff"
 
   web: false
-

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 class CustomPageTransitionsBuilder extends PageTransitionsBuilder {
   @override
   Widget buildTransitions<T>(

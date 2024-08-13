@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     if (isLoggedIn) {
       Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const Home()));
+          MaterialPageRoute(builder: (context) => Home()));
     } else {
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const Login()));

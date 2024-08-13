@@ -6,6 +6,7 @@ import 'package:runhub/utilities/variables.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MaterialApp(
+    debugShowCheckedModeBanner: false, // Add this line
     theme: ThemeData(
       pageTransitionsTheme: PageTransitionsTheme(
         builders: {
@@ -13,7 +14,7 @@ void main() async {
           TargetPlatform.iOS: CustomPageTransitionsBuilder(),
         },
       ),
-      primaryColor: const Color(Variables.customColor),
+      primaryColor: CustomWidgets.defaultOrange,
     ),
     home: const SplashScreen(),
   ));

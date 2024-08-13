@@ -12,8 +12,8 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  EmailPasswordController emailPasswordController = EmailPasswordController();
+  bool _obscureCharacter = true;
 
   bool accepted = false;
   String errorMessage = "";
@@ -21,10 +21,10 @@ class _RegisterState extends State<Register> {
   Future<void> _login() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('isLoggedIn', true);
-    prefs.setString('email', emailController.text);
+    prefs.setString('email', emailPasswordController.emailController.text);
     if (context.mounted) {
       Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => const Home()),
+        MaterialPageRoute(builder: (context) => Home()),
         (Route<dynamic> route) => false,
       );
     }
@@ -36,6 +36,7 @@ class _RegisterState extends State<Register> {
     double screenHeight = MediaQuery.of(context).size.height;
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(
@@ -51,19 +52,12 @@ class _RegisterState extends State<Register> {
                   const Text(
                     "Create an Account",
                     textAlign: TextAlign.left,
-                    style: TextStyle(
-                      fontSize: Variables.heading1,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'SF',
-                    ),
+                    style: CustomWidgets.heading1,
                   ),
                   const Text(
                     "Hi, create your account",
                     textAlign: TextAlign.left,
-                    style: TextStyle(
-                      fontSize: Variables.normalText,
-                      fontFamily: 'SF',
-                    ),
+                    style: CustomWidgets.heading2,
                   ),
                   Center(
                     child: Image(
@@ -72,37 +66,46 @@ class _RegisterState extends State<Register> {
                     ),
                   ),
                   TextFormField(
-                    controller: emailController,
+                    controller: emailPasswordController.emailController,
                     decoration: const InputDecoration(
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: CustomWidgets.defaultOrange)),
                       border: UnderlineInputBorder(),
                       icon: Icon(Icons.email),
                       labelText: 'Email',
                       iconColor: Colors.grey,
-                      labelStyle: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: Colors.grey,
-                        fontFamily: 'SF',
-                        fontSize: Variables.normalText,
-                      ),
+                      labelStyle: CustomWidgets.labelStyle,
                     ),
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.01,
                   ),
                   TextFormField(
-                    controller: passwordController,
-                    decoration: const InputDecoration(
+                    controller: emailPasswordController.passwordController,
+                    obscureText: _obscureCharacter, // Corrected this line
+                    decoration: InputDecoration(
+                      focusedBorder: const UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: CustomWidgets.defaultOrange)),
                       iconColor: Colors.grey,
-                      border: UnderlineInputBorder(),
-                      icon: Icon(Icons.password),
-                      suffix: Icon(Icons.visibility),
-                      labelText: 'Password',
-                      labelStyle: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontFamily: 'SF',
-                        color: Colors.grey,
-                        fontSize: Variables.normalText,
+                      border: const UnderlineInputBorder(),
+                      icon: const Icon(Icons.lock),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscureCharacter
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: Colors.grey,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _obscureCharacter = !_obscureCharacter;
+                          });
+                        },
                       ),
+                      labelText: 'Password',
+                      labelStyle: CustomWidgets.labelStyle,
                     ),
                   ),
                   SizedBox(
@@ -113,7 +116,7 @@ class _RegisterState extends State<Register> {
                     children: [
                       Checkbox(
                         value: accepted,
-                        activeColor: const Color(Variables.customColor),
+                        activeColor: CustomWidgets.defaultOrange,
                         onChanged: (bool? value) {
                           setState(() {
                             accepted = value ?? false;
@@ -122,9 +125,7 @@ class _RegisterState extends State<Register> {
                       ),
                       const Text(
                         "I agree to the",
-                        style: TextStyle(
-                          fontFamily: 'SF',
-                        ),
+                        style: CustomWidgets.simpleText,
                       ),
                       TextButton(
                         onPressed: () {
@@ -139,14 +140,14 @@ class _RegisterState extends State<Register> {
                                       const Text(
                                         "The RunHub websites, related mobile applications and services (collectively, the “Services”) are made available to you by Strava, Inc. with its address at 208 Utah Street, San Francisco, CA 94103, USA, subject to these Terms of Service (the “Terms”) and in accordance with the Strava Privacy Policy (the “Privacy Policy”). More information about the Services may be found at https://RunHub.com."
                                         "\nYou agree to comply with these Terms and any supplemental terms which Strava makes available to you on the Services which shall form part of the Terms. Strava reserves the right to review accounts and user actions on the Services to ensure compliance with our Terms. \n\nBY ACCESSING, USING OR UPLOADING OR DOWNLOADING ANY INFORMATION OR MATERIALS TO OR FROM THE SERVICES, OR BY INDICATING YOUR ASSENT TO THESE TERMS BY CREATING AN ACCOUNT, CLICKING “SIGN UP” OR ANY SIMILAR MECHANISM, YOU ARE AGREEING TO THESE TERMS. IF YOU DO NOT AGREE TO THESE TERMS, DO NOT ACCESS OR USE THE SERVICES. This agreement was written in English. To the extent a translated version of the Terms conflict with the English version, the English version controls.",
-                                        style: TextStyle(fontFamily: 'SF'),
+                                        style: CustomWidgets.simpleText,
                                       ),
                                       SizedBox(
                                         height: screenHeight * 0.02,
                                       ),
                                       const Text(
                                         "\nYou agree to comply with these Terms and any supplemental terms which Strava makes available to you on the Services which shall form part of the Terms. Strava reserves the right to review accounts and user actions on the Services to ensure compliance with our Terms. \nIf you access or use the Services on behalf of a company or other entity, you represent that you have authority to bind such entity and its affiliates to these Terms and that it is fully binding on them. In such case, the term “you” will refer to such entity and its affiliates. If you do not have authority, you may not access or use the Services. These Terms contain disclaimers of warranties and limitations on liability that may be applicable to you.\nThe Strava Services cannot be provided and the agreement described in these Terms of Service cannot be performed without Strava processing data about you, and other Strava users, including your location data. Processing of the data you share with Strava, including location data, is essential to the Services we provide and a necessary part of our performance of the agreement we have with you.",
-                                        style: TextStyle(fontFamily: 'SF'),
+                                        style: CustomWidgets.simpleText,
                                       ),
                                     ],
                                   ),
@@ -166,7 +167,7 @@ class _RegisterState extends State<Register> {
                         child: const Text(
                           "Terms & Conditions",
                           style: TextStyle(
-                            color: Color(Variables.customColor),
+                            color: CustomWidgets.defaultOrange,
                             fontFamily: 'SF',
                           ),
                         ),
@@ -176,10 +177,7 @@ class _RegisterState extends State<Register> {
                   Center(
                     child: Text(
                       errorMessage,
-                      style: const TextStyle(
-                        color: Colors.red,
-                        fontFamily: 'SF',
-                      ),
+                      style: CustomWidgets.errorText,
                     ),
                   ),
                   if (errorMessage != "")
@@ -191,18 +189,26 @@ class _RegisterState extends State<Register> {
                     height: screenHeight * Variables.buttonHeightToScreen,
                     child: ElevatedButton(
                       onPressed: () {
-                        if (emailController.text.isNotEmpty &&
-                            passwordController.text.isNotEmpty) {
+                        if (emailPasswordController
+                                .emailController.text.isNotEmpty &&
+                            emailPasswordController
+                                .passwordController.text.isNotEmpty) {
                           setState(() {
-                            if (emailController.text.isEmpty ||
-                                passwordController.text.isEmpty) {
+                            if (emailPasswordController
+                                    .emailController.text.isEmpty ||
+                                emailPasswordController
+                                    .passwordController.text.isEmpty) {
                               errorMessage = "Please fill all the fields";
-                            } else if (!emailController.text.contains('@')) {
+                            } else if (!emailPasswordController
+                                .emailController.text
+                                .contains('@')) {
                               errorMessage = "Email is not valid";
                             } else if (!accepted) {
                               errorMessage =
                                   "Please accept the terms & conditions";
-                            } else if (passwordController.text.length < 6) {
+                            } else if (emailPasswordController
+                                    .passwordController.text.length <
+                                6) {
                               errorMessage =
                                   "Password must be at least 6 characters";
                             } else {
@@ -222,16 +228,13 @@ class _RegisterState extends State<Register> {
                             Variables.buttonEdgeRadius,
                           ),
                         ),
-                        backgroundColor: const Color(0xFFF7931E),
+                        backgroundColor: CustomWidgets.defaultOrange,
                         elevation: 0,
                         foregroundColor: Colors.white,
                       ),
                       child: const Text(
                         "Sign Up",
-                        style: TextStyle(
-                          fontSize: Variables.normalText,
-                          fontFamily: 'SF',
-                        ),
+                        style: CustomWidgets.normalText,
                       ),
                     ),
                   ),
@@ -248,10 +251,7 @@ class _RegisterState extends State<Register> {
                       ),
                       const Text(
                         "OR",
-                        style: TextStyle(
-                          fontSize: Variables.smallText,
-                          fontFamily: 'SF',
-                        ),
+                        style: CustomWidgets.smallText,
                       ),
                       Container(
                         width: screenWidth * 0.3,
@@ -282,10 +282,7 @@ class _RegisterState extends State<Register> {
                       iconAlignment: IconAlignment.start,
                       label: const Text(
                         "Sign Up with Apple",
-                        style: TextStyle(
-                          fontSize: Variables.normalText,
-                          fontFamily: 'SF',
-                        ),
+                        style: CustomWidgets.normalText,
                       ),
                     ),
                   ),
@@ -311,10 +308,7 @@ class _RegisterState extends State<Register> {
                       icon: const Icon(Icons.facebook),
                       label: const Text(
                         "Sign Up with Facebook",
-                        style: TextStyle(
-                          fontSize: Variables.normalText,
-                          fontFamily: 'SF',
-                        ),
+                        style: CustomWidgets.normalText,
                       ),
                     ),
                   ),
